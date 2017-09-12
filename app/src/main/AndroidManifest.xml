@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.MypageActivity"/>
+        <activity android:name=".activity.PoemtryActivity"/>
+        <activity android:name=".activity.WritePoemActivity"/>
+        <activity android:name=".activity.PoemActivity"/>
     </application>
 
 </manifest>

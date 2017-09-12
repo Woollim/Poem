@@ -9,9 +9,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import root.hash_tm.R;
+import root.hash_tm.activity.PoemtryActivity;
 
 /**
  * Created by root1 on 2017. 8. 29..
@@ -30,12 +30,12 @@ public class BookFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_book,container,false);
-        TextView titleText = (TextView) view.findViewById(R.id.titleText);
-        TextView writerText = (TextView) view.findViewById(R.id.writerText);
+        //TextView titleText = (TextView) view.findViewById(R.id.titleText);
+        //TextView writerText = (TextView) view.findViewById(R.id.writerText);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
+                Intent intent = new Intent(context, PoemtryActivity.class);
                 context.startActivity(intent);
             }
         });
