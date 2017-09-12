@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import root.hash_tm.Fragment.BookFragment;
 import root.hash_tm.Fragment.MoreInfoViewFragment;
@@ -23,7 +23,7 @@ public class MainActivity extends BaseActivity {
 
         ViewPager viewPager = (ViewPager)findViewById(R.id.viewPager);
         viewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager()));
-        ImageButton writeButton = (ImageButton)findViewById(R.id.writeButton);
+        RelativeLayout writeButton = (RelativeLayout)findViewById(R.id.writeButton);
         writeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
