@@ -2,29 +2,29 @@ package root.hash_tm.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.ImageButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import root.hash_tm.R;
 import root.hash_tm.util.BaseActivity;
 
 /**
- * Created by root1 on 2017. 8. 29..
+ * Created by root1 on 2017. 9. 4..
  */
 
-public class PoemActivity extends BaseActivity {
-
+public class PoemtryIndexActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_poem);
+        setContentView(R.layout.activity_poemtry_index);
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ImageButton actionButton = (ImageButton)findViewById(R.id.actionButton);
         TextView titleText = (TextView)findViewById(R.id.titleText);
-        TextView contentText = (TextView)findViewById(R.id.contentText);
+        TextView poemCountText = (TextView)findViewById(R.id.poemCountText);
         TextView writerText = (TextView)findViewById(R.id.writerText);
-
-
     }
+
 }

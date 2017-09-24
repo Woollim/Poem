@@ -1,43 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
+        android:id="@+id/layout"
         android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
 
         <LinearLayout
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="horizontal">
             <TextView
                 android:id="@+id/nameText"
+                android:layout_marginLeft="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이병찬 시인"
-                android:textSize="24dp" />
+                android:textSize="24dp"
+                android:text="이병찬 작가"/>
+            <TextView
+                android:id="@+id/poemtryCountText"
+                android:layout_marginLeft="16dp"
+                android:textSize="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="시 10편"/>
+            <TextView
+                android:textSize="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"/>
+            <TextView
+                android:id="@+id/poemCountText"
+                android:textSize="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="시 10편"/>
         </LinearLayout>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabBar"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:layout_height="1px"
+            android:background="@color/colorMainWriter"/>
+        <LinearLayout
+            android:gravity="center_vertical||right"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6"/>
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_marginRight="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="시 원고"
+                android:textSize="24dp"/>
+
+
+        </LinearLayout>
+
     </LinearLayout>
 
+    <View
+        android:layout_below="@id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#AA000000"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_below="@id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <android.support.design.widget.FloatingActionButton
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_alignParentRight="true"
+        android:id="@+id/writeButton"
+        android:src="@drawable/icon_main_pen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
         android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"/>
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"/>
+
+
 
 </RelativeLayout>

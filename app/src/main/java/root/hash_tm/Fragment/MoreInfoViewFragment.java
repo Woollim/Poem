@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import root.hash_tm.R;
 
@@ -15,10 +16,21 @@ import root.hash_tm.R;
 
 public class MoreInfoViewFragment extends Fragment{
 
+    private Button getInfoButton;
+
+    private View.OnClickListener moreInfo;
+
+    public void setMoreInfo(View.OnClickListener moreInfo) {
+        this.moreInfo = moreInfo;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.view_more_book,container,false);
+        View view = inflater.inflate(R.layout.view_main_more_info,container,false);
+        getInfoButton = (Button)view.findViewById(R.id.getInfoButton);
+        getInfoButton.setOnClickListener(moreInfo);
         return view;
     }
+
 }

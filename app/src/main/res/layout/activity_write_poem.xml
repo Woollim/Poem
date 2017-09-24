@@ -1,33 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/titleEdit"
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:hint="제목을 입력하세요"
-        android:textSize="24dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"/>
+        android:layout_height="55dp">
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="48dp"
+            android:layout_height="70dp" />
+        <EditText
+            android:id="@+id/titleEdit"
+            android:gravity="center"
+            android:hint="제목을 입력하세요"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+        <ImageButton
+            android:id="@+id/sendButton"
+            android:layout_width="48dp"
+            android:layout_height="70dp" />
+    </LinearLayout>
 
-    <EditText
-        android:layout_below="@id/titleEdit"
+    <RelativeLayout
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:cursorVisible="true"
-        android:textSize="26dp"
-        android:hint="당신의 시를 입력하세요"
-        android:background="@android:color/transparent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
+        <EditText
+            android:id="@+id/contentEdit"
+            android:padding="8dp"
+            android:hint="내용을 입력하세요"
+            android:gravity="top||right"
+            android:background="@drawable/back_write_poem_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/setGravityButton"
+            android:layout_width="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"/>
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>
