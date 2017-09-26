@@ -16,13 +16,15 @@ public class RetrofitClass {
 
     public ConnectInterface apiInterface;
 
+    private String url = "http://52.39.142.73:80";
+
     private RetrofitClass(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://13.124.230.198:8027")
+                .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

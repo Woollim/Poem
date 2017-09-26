@@ -38,7 +38,7 @@
             android:id="@+id/contentEdit"
             android:padding="8dp"
             android:hint="내용을 입력하세요"
-            android:gravity="top||right"
+            android:gravity="top|right"
             android:background="@drawable/back_write_poem_edit"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

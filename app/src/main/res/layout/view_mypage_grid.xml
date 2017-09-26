@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:gravity="center"
-    android:layout_margin="8dp"
+    android:layout_margin="12dp"
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
@@ -10,23 +10,29 @@
         android:layout_width="140dp"
         android:layout_height="180dp"/>
 
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_marginTop="8dp"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="너랑나"
-        android:textSize="20dp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/writerText"
-        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18dp"
-        android:text="300"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginTop="2dp"
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="너랑나"
+            android:textSize="18dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/writerText"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:text="300"/>
+    </LinearLayout>
 
 
 </LinearLayout>

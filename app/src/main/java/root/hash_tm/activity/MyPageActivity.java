@@ -63,7 +63,6 @@ public class MyPageActivity extends BaseActivity {
         });
 
         viewPager.setAdapter(new MyPageViewAdapter(getSupportFragmentManager()));
-        viewPager.setOffscreenPageLimit(4);
 
         FloatingActionButton writeButton = (FloatingActionButton)findViewById(R.id.writeButton);
         writeButton.setOnClickListener(new View.OnClickListener() {
@@ -83,10 +82,10 @@ public class MyPageActivity extends BaseActivity {
         @Override
         public Fragment getItem(int position) {
             MyPageRecyclerFragment fragment = new MyPageRecyclerFragment();
-            if(position / 2 == 0){
-                fragment.setAdapter(new MyPageGridAdapter(), true);
+            if(position % 2 == 0){
+                fragment.setAdapter(new MyPageGridAdapter(titleText.getText().toString(), getPreferences().getString("cookie", "")), true);
             }else{
-                fragment.setAdapter(new MyPageLinearAdapter(), false);
+                fragment.setAdapter(new MyPageLinearAdapter(titleText.getText().toString()), false);
             }
             return fragment;
         }

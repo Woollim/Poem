@@ -32,11 +32,13 @@ public class MyPageRecyclerFragment extends Fragment {
         RecyclerView recyclerView = new RecyclerView(container.getContext());
         layout.addView(recyclerView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         recyclerView.setAdapter(adapter);
+
         if(isGrid){
             recyclerView.setLayoutManager(new GridLayoutManager(container.getContext(), 2));
         }else{
             recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
         }
+
         return layout;
     }
 }

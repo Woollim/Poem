@@ -1,6 +1,7 @@
 package root.hash_tm.util;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -37,8 +38,17 @@ public class BaseActivity extends AppCompatActivity {
             }
         }
         startActivity(intent);
-        this.finish();
     }
 
+    public SharedPreferences getPreferences(){
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        return pref;
+    }
 
+    public void saveData(String key, String value){
+        SharedPreferences.Editor editor = getPreferences().edit();
+        editor.remove(key);
+        editor.putString(key, value);
+        editor.commit();
+    }
 }

@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.PoemActivity">
+        <activity android:name=".activity.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,10 +17,16 @@
             </intent-filter>
         </activity>
 
+
+        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.SignUpActivity"/>
         <activity android:name=".activity.MyPageActivity"/>
         <activity android:name=".activity.PoemtryIndexActivity"/>
         <activity android:name=".activity.WritePoemActivity"/>
-        <!--<activity android:name=".activity.PoemActivity"/>-->
+        <activity android:name=".activity.PoemActivity"/>
+
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>

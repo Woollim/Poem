@@ -14,6 +14,10 @@ import root.hash_tm.R;
 
 public class MyPageLinearAdapter extends RecyclerView.Adapter {
 
+    public MyPageLinearAdapter(String title) {
+
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_mypage_linear, parent, false);

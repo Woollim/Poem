@@ -15,8 +15,8 @@
     <TextView
         android:id="@+id/textView"
         android:gravity="center"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
         android:layout_below="@id/imageView"
         android:layout_centerHorizontal="true"
         android:text="@string/appInfoVertical"
@@ -26,8 +26,8 @@
 
     <LinearLayout
         android:layout_below="@id/textView"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="48dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -35,7 +35,8 @@
         <EditText
             android:id="@+id/idEdit"
             android:gravity="center"
-            android:hint="아이디"
+            android:hint="이메일"
+            android:inputType="textEmailAddress"
             android:textSize="18dp"
             android:textColorHint="#44000000"
             android:padding="12dp"
@@ -44,6 +45,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/pwEdit"
             android:gravity="center"
             android:hint="비밀번호"

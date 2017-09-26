@@ -6,10 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-
-import root.hash_tm.Model.IntentModel;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import root.hash_tm.R;
+import root.hash_tm.connect.RetrofitClass;
 import root.hash_tm.util.BaseActivity;
 
 /**
@@ -35,10 +36,23 @@ public class SignInActivity extends BaseActivity {
                 if(getText(idEdit).isEmpty() && getText(pwEdit).isEmpty()){
                     showToast("아이디와 비빌번호를 입력하세요");
                 }else{
-                    ArrayList<IntentModel> data = new ArrayList<IntentModel>();
-                    data.add(new IntentModel("id", getText(idEdit)));
-                    data.add(new IntentModel("pw", getText(pwEdit)));
-                    goNextActivity(MainActivity.class, null);
+                    RetrofitClass.getInstance().apiInterface.signIn(getText(idEdit), getText(pwEdit))
+                            .enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if(response.code() == 200){
+                                        saveData("cookie", response.headers().get("Set-Cookie"));
+                                        goNextActivity(MainActivity.class, null);
+                                    }else if(response.code() == 400){
+                                        showToast("로그인에 실패하였습니다.");
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+                                    t.printStackTrace();
+                                }
+                            });
                 }
             }
         });

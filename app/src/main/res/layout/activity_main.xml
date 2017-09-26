@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
-    <RelativeLayout
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        app:fabSize="normal"
+        android:src="@drawable/icon_main_pen"
         android:id="@+id/writeButton"
-        android:background="@drawable/main_write_button_shape"
-        android:layout_width="64dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_height="64dp">
-
-        <ImageButton
-            android:src="@drawable/icon_main_pen"
-            android:layout_centerInParent="true"
-            android:layout_width="32dp"
-            android:layout_height="32dp" />
-
-    </RelativeLayout>
+        android:layout_alignParentRight="true" />
 
     <ImageButton
         android:background="@android:color/transparent"
