@@ -6,7 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import root.hash_tm.Model.IntentModel;
+import root.hash_tm.Model.PoemListModel;
 import root.hash_tm.R;
+import root.hash_tm.activity.NoOutPoemActivity;
+import root.hash_tm.connect.RetrofitClass;
+import root.hash_tm.util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 9. 24..
@@ -14,8 +30,44 @@ import root.hash_tm.R;
 
 public class MyPageLinearAdapter extends RecyclerView.Adapter {
 
-    public MyPageLinearAdapter(String title) {
+    private List<PoemListModel> data = new ArrayList<>();
+    private BaseActivity activity;
+    private String cookie;
 
+    public MyPageLinearAdapter(String title, String cookie, BaseActivity activity) {
+        this.activity = activity;
+        this.cookie = cookie;
+        if(cookie.isEmpty()){
+
+        }else{
+            if(title.equals("시 원고")){
+                RetrofitClass.getInstance().apiInterface
+                        .getMyPoem(cookie)
+                        .enqueue(new Callback<JsonObject>() {
+                            @Override
+                            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                if(response.code() == 200){
+                                    if(response.code() == 200){
+                                        JsonElement temp = response.body().get("data");
+                                        Gson gson = new Gson();
+                                        PoemListModel[] arrData = gson.fromJson(temp, PoemListModel[].class);
+                                        data = Arrays.asList(arrData);
+                                        notifyDataSetChanged();
+                                    }else{
+
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<JsonObject> call, Throwable t) {
+                                t.printStackTrace();
+                            }
+                        });
+            }else{
+
+            }
+        }
     }
 
     @Override
@@ -26,21 +78,35 @@ public class MyPageLinearAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        MyPageLinearAdapter.MyViewHolder myViewHolder = (MyViewHolder) holder;
+        myViewHolder.titleText.setText(data.get(position).getTitle());
+        myViewHolder.contentText.setText(data.get(position).getContent());
+        myViewHolder.id = data.get(position).getId();
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return data.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView titleText, contentText;
+        int id;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             titleText = (TextView)itemView.findViewById(R.id.titleText);
             contentText = (TextView)itemView.findViewById(R.id.contentText);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ArrayList<IntentModel> data = new ArrayList<>();
+                    data.add(new IntentModel("poemId", id + ""));
+                    data.add(new IntentModel("cookie", cookie));
+                    activity.goNextActivity(NoOutPoemActivity.class, data);
+                }
+            });
         }
     }
 }

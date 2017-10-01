@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.TextView;
 
 import retrofit2.Call;
@@ -54,6 +53,7 @@ public class PoemtryIndexActivity extends BaseActivity {
                         if(response.code() == 200){
                             titleText.setText(response.body().getTitle());
                             writerText.setText(response.body().getWriter());
+                            poemCountText.setText(response.body().getPoems());
                         }else{
                             showToast("데이터를 로드하는데 실패하였습니다.");
                         }

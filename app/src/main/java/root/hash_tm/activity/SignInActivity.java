@@ -2,6 +2,7 @@ package root.hash_tm.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,8 +42,10 @@ public class SignInActivity extends BaseActivity {
                                 @Override
                                 public void onResponse(Call<Void> call, Response<Void> response) {
                                     if(response.code() == 200){
-                                        saveData("cookie", response.headers().get("Set-Cookie"));
+                                        Log.d("xxx", "cookie : " + response.headers().get("Poem-Session-Key"));
+                                        saveData("cookie", response.headers().get("Poem-Session-Key"));
                                         goNextActivity(MainActivity.class, null);
+                                        finish();
                                     }else if(response.code() == 400){
                                         showToast("로그인에 실패하였습니다.");
                                     }

@@ -28,6 +28,8 @@ public class MainActivity extends BaseActivity {
     ViewPager viewPager;
     MainViewPagerAdapter adapter;
 
+    int currentCount = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void getData(){
-        RetrofitClass.getInstance().apiInterface.getPopularBooks()
+        RetrofitClass.getInstance().apiInterface.getPopularBooks(currentCount, 4)
                 .enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -67,6 +69,8 @@ public class MainActivity extends BaseActivity {
                             BookModel[] bookModelArr = gson.fromJson(data, BookModel[].class);
                             adapter.setData(bookModelArr);
                             viewPager.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                            viewPager.setCurrentItem(0);
                         }else{
                             showToast("데이터 로드 실패");
                         }
@@ -98,7 +102,8 @@ public class MainActivity extends BaseActivity {
                 fragment.setMoreInfo(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        viewPager.setCurrentItem(0);
+                        currentCount++;
+                        getData();
                     }
                 });
                 return fragment;

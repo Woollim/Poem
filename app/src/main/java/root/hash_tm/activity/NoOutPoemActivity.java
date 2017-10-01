@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import root.hash_tm.Manager.TTSManager;
+import root.hash_tm.Model.IntentModel;
 import root.hash_tm.Model.PoemModel;
 import root.hash_tm.R;
 import root.hash_tm.connect.RetrofitClass;
@@ -21,43 +23,58 @@ import root.hash_tm.util.BaseActivity;
  * Created by root1 on 2017. 8. 29..
  */
 
-public class PoemActivity extends BaseActivity {
+public class NoOutPoemActivity extends BaseActivity {
 
-    ImageButton actionButton;
-    TextView titleText, contentText, writerText, bookTitle;
+    ImageButton speakButton, editButton;
+    TextView titleText, contentText, writerText;
 
-    TTSManager ttsManager;
+//    TTSManager ttsManager = new TTSManager(this);
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_poem);
-
-        ttsManager = new TTSManager(this);
+        setContentView(R.layout.activity_poem_no_out);
 
         Intent intent = getIntent();
-        String poemId = intent.getStringExtra("poemId");
+        final String poemId = intent.getStringExtra("poemId");
+        String cookie = intent.getStringExtra("cookie");
 
-        String cookie = getPreferences().getString("cookie", "");
-
-
-//        bookTitle = (TextView)findViewById(R.id.bookTitle);
-        actionButton = (ImageButton)findViewById(R.id.actionButton);
+        speakButton = (ImageButton)findViewById(R.id.speakButton);
+        editButton = (ImageButton)findViewById(R.id.editButton);
         titleText = (TextView)findViewById(R.id.titleText);
         contentText = (TextView)findViewById(R.id.contentText);
         writerText = (TextView)findViewById(R.id.writerText);
         getData(poemId, cookie);
 
-        actionButton.setOnClickListener(
+        speakButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                    ttsManager.readTTS(contentText.getText().toString());
+                        //ttsManager.readTTS(titleText.getText().toString());
                     }
                 }
         );
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!title.isEmpty()){
+                    ArrayList<IntentModel> data = new ArrayList<>();
+                    data.add(new IntentModel("title", title));
+                    data.add(new IntentModel("content", content));
+                    data.add(new IntentModel("poemId", poemId));
+                    data.add(new IntentModel("aligment", aligment + ""));
+                    goNextActivity(WritePoemActivity.class, data);
+                }else{
+                    showToast("잠시만 기다려 주세요");
+                }
+            }
+        });
     }
+
+    private String title = "", content = "";
+    private int aligment = 0;
 
     private void getData(String poemId, String cookie){
         RetrofitClass.getInstance().apiInterface.getPoem(poemId, cookie)
@@ -68,6 +85,11 @@ public class PoemActivity extends BaseActivity {
                             titleText.setText(response.body().getTitle());
                             contentText.setText(response.body().getContent());
                             writerText.setText(response.body().getWriter());
+
+                            title = response.body().getTitle();
+                            content = response.body().getContent();
+                            aligment = response.body().getAlignment();
+
                             switch (response.body().getAlignment()){
                                 case 3:
                                     contentText.setGravity(Gravity.LEFT);
@@ -94,6 +116,6 @@ public class PoemActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ttsManager.shutDownTTS();
+        //ttsManager.shutDownTTS();
     }
 }

@@ -7,10 +7,11 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class PoemIndexModel {
+
     @SerializedName("id")
     private String id;
     @SerializedName("title")
-    private int title;
+    private String title;
 
     public String getId() {
         return id;
@@ -20,11 +21,11 @@ public class PoemIndexModel {
         this.id = id;
     }
 
-    public int getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(int title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 }

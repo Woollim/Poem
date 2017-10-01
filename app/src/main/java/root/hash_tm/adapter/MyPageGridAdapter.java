@@ -19,56 +19,51 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import root.hash_tm.Model.BookModel;
+import root.hash_tm.Model.IntentModel;
 import root.hash_tm.R;
+import root.hash_tm.activity.PoemtryIndexActivity;
 import root.hash_tm.connect.RetrofitClass;
+import root.hash_tm.util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 9. 24..
  */
 
-public class MyPageGridAdapter extends RecyclerView.Adapter {
+public class MyPageGridAdapter extends RecyclerView.Adapter implements Callback<JsonObject> {
 
-    private String cookie;private List<BookModel> data = new ArrayList<>();
+    private String cookie;
+    private List<BookModel> data = new ArrayList<>();
+    private BaseActivity activity;
 
-    public MyPageGridAdapter(String title, String cookie) {
+    public MyPageGridAdapter(String title, String cookie, BaseActivity activity) {
+        this.activity = activity;
         if(cookie.isEmpty()){
 
         }
 
         if(title.equals("출간 완료 시집")){
             RetrofitClass.getInstance().apiInterface
-                    .getMyPoemtry(cookie).enqueue(new Callback<JsonObject>() {
-                @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    if(response.code() == 200){
-                        JsonElement tempData = response.body().get("data");
-                        Gson gson = new Gson();
-                        data = Arrays.asList(gson.fromJson(tempData, BookModel[].class));
-                        notifyDataSetChanged();
-                    }else{
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
-
-                }
-            });
+                    .getMyPoemtry(cookie).enqueue(this);
         }else{
-            RetrofitClass.getInstance().apiInterface
-                    .getHeartPomtry(cookie).enqueue(new Callback<JsonObject>() {
-                @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-
-                }
-
-                @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
-
-                }
-            });
+            //RetrofitClass.getInstance().apiInterface.getHeartPomtry(cookie).enqueue(this);
         }
+    }
+
+    @Override
+    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+        if(response.code() == 200){
+            JsonElement tempData = response.body().get("data");
+            Gson gson = new Gson();
+            data = Arrays.asList(gson.fromJson(tempData, BookModel[].class));
+            notifyDataSetChanged();
+        }else{
+
+        }
+    }
+
+    @Override
+    public void onFailure(Call<JsonObject> call, Throwable t) {
+        t.printStackTrace();
     }
 
     @Override
@@ -82,6 +77,7 @@ public class MyPageGridAdapter extends RecyclerView.Adapter {
         MyViewHolder myViewHolder = (MyViewHolder)holder;
         myViewHolder.titleText.setText(data.get(position).getTitle());
         myViewHolder.writerText.setText(data.get(position).getWriter());
+        myViewHolder.id = data.get(position).getId();
     }
 
     @Override
@@ -92,12 +88,22 @@ public class MyPageGridAdapter extends RecyclerView.Adapter {
     class MyViewHolder extends RecyclerView.ViewHolder{
         CardView bookCard;
         TextView titleText, writerText;
+        int id;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             bookCard = (CardView)itemView.findViewById(R.id.bookCard);
             titleText = (TextView)itemView.findViewById(R.id.titleText);
             writerText = (TextView)itemView.findViewById(R.id.writerText);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ArrayList<IntentModel> arrayList = new ArrayList<IntentModel>();
+                    arrayList.add(new IntentModel("bookId", id + ""));
+                    activity.goNextActivity(PoemtryIndexActivity.class, arrayList);
+                }
+            });
         }
     }
 }

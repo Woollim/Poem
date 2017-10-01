@@ -17,6 +17,17 @@ public class PoemIndexInfoModel {
     @SerializedName("hearts")
     private int hearts;
 
+    @SerializedName("poems")
+    private int poems;
+
+    public String getPoems() {
+        return "총 " + poems + "편";
+    }
+
+    public void setPoems(int poems) {
+        this.poems = poems;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -26,7 +37,7 @@ public class PoemIndexInfoModel {
     }
 
     public String getWriter() {
-        return writer;
+        return writer + " 지음";
     }
 
     public void setWriter(String writer) {

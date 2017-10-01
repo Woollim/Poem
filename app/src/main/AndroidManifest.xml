@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="root.hash_tm">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -9,7 +10,7 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SignInActivity">
+        <activity android:name=".activity.MakePoemtryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,6 +19,7 @@
         </activity>
 
 
+        <activity android:name=".activity.NoOutPoemActivity"/>
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.SignUpActivity"/>
         <activity android:name=".activity.MyPageActivity"/>

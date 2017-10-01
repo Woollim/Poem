@@ -12,7 +12,9 @@
             android:layout_marginLeft="16dp"
             android:layout_width="48dp"
             android:layout_height="48dp" />
+
         <TextView
+            android:id="@+id/bookTitle"
             android:layout_centerInParent="true"
             android:text="title"
             android:textSize="26dp"
