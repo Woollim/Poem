@@ -2,11 +2,13 @@ package root.hash_tm.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by root1 on 2017. 9. 26..
  */
 
-public class PoemIndexModel {
+public class PoemIndexModel implements Serializable {
 
     @SerializedName("id")
     private String id;

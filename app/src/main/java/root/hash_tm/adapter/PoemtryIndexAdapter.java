@@ -1,5 +1,7 @@
 package root.hash_tm.adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +19,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import root.hash_tm.Model.IntentModel;
 import root.hash_tm.Model.PoemIndexModel;
+import root.hash_tm.Model.PoemIndexSendData;
 import root.hash_tm.R;
 import root.hash_tm.activity.PoemActivity;
 import root.hash_tm.connect.RetrofitClass;
@@ -33,6 +35,12 @@ public class PoemtryIndexAdapter extends RecyclerView.Adapter {
     private BaseActivity activity;
 
     private List<PoemIndexModel> data = new ArrayList<>();
+
+    private String bookTitleText;
+
+    public void setBookTitleText(String bookTitleText) {
+        this.bookTitleText = bookTitleText;
+    }
 
     public PoemtryIndexAdapter(final BaseActivity activity, String bookId) {
         this.activity = activity;
@@ -67,7 +75,7 @@ public class PoemtryIndexAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         PoemtryIndexViewHolder poemtryIndexViewHolder = (PoemtryIndexViewHolder)holder;
         poemtryIndexViewHolder.titleText.setText(data.get(position).getTitle());
-        poemtryIndexViewHolder.id = data.get(position).getId();
+        poemtryIndexViewHolder.postion = position;
     }
 
     @Override
@@ -77,7 +85,7 @@ public class PoemtryIndexAdapter extends RecyclerView.Adapter {
 
     class PoemtryIndexViewHolder extends RecyclerView.ViewHolder{
         TextView titleText;
-        String id;
+        int postion;
 
         public PoemtryIndexViewHolder(final View itemView) {
             super(itemView);
@@ -87,10 +95,14 @@ public class PoemtryIndexAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ArrayList<IntentModel> sendData = new ArrayList<IntentModel>();
-                    sendData.add(new IntentModel("poemId", id));
-                    activity.goNextActivity(PoemActivity.class, sendData);
-                    activity.finish();
+                    PoemIndexSendData sendData = new PoemIndexSendData(bookTitleText, data);
+                    Intent intent = new Intent(activity, PoemActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("data", sendData);
+                    intent.putExtra("bookTitle",bookTitleText);
+                    intent.putExtra("index", postion);
+                    intent.putExtras(bundle);
+                    activity.startActivity(intent);
                 }
             });
         }

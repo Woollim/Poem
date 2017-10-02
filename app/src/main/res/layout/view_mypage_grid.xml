@@ -21,7 +21,7 @@
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="너랑나"
+            android:text="---"
             android:textSize="18dp"
             android:textStyle="bold"/>
 
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14dp"
-            android:text="300"/>
+            android:text="---"/>
     </LinearLayout>
 
 

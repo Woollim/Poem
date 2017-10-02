@@ -7,17 +7,19 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal">
+
         <ImageButton
+            android:id="@+id/backButton"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="8dp"
             android:layout_width="48dp"
             android:layout_height="48dp" />
 
         <TextView
             android:id="@+id/bookTitle"
             android:layout_centerInParent="true"
-            android:text="title"
-            android:textSize="26dp"
+            android:text="---"
+            android:textSize="22dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"/>
@@ -28,62 +30,72 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <TextView
-            android:layout_margin="12dp"
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_centerInParent="true"
-            android:id="@+id/contentText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="hello\nhello\nhello\nhello\nhello\nhello\nhello\nhello"/>
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:padding="16dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageButton
+                    android:background="@android:color/transparent"
+                    android:id="@+id/actionButton"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_volume_up_black_24dp"/>
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:id="@+id/titleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="---"
+                    android:textStyle="bold"
+                    android:textSize="22dp"/>
+                <TextView
+                    android:id="@+id/contentText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="---"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:textSize="18dp"
+                    android:layout_margin="16dp"
+                    android:id="@+id/writerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="---"/>
+            </LinearLayout>
+        </ScrollView>
         <TextView
-            android:layout_centerHorizontal="true"
-            android:layout_above="@id/contentText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="title"
-            android:textSize="20dp"
-            android:id="@+id/titleText"/>
-        <ImageButton
-            android:src="@drawable/ic_volume_up_black_24dp"
-            android:background="@android:color/transparent"
-            android:layout_marginBottom="8dp"
-            android:layout_above="@id/titleText"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/actionButton"
-            android:layout_width="44dp"
-            android:layout_height="44dp" />
-        <TextView
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/contentText"
-            android:id="@+id/writerText"
-            android:textSize="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="지은이 쓰다"/>
-        <TextView
+            android:id="@+id/countText"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3/7"
+            android:text="-/-"
             android:textSize="14dp"/>
-
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
         <ImageButton
+            android:id="@+id/beforeButton"
             android:layout_centerVertical="true"
             android:layout_width="48dp"
             android:layout_height="48dp" />
         <ImageButton
+            android:id="@+id/afterButton"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_width="48dp"
             android:layout_height="48dp" />
         <ImageButton
+            android:id="@+id/likeButton"
             android:layout_centerInParent="true"
             android:layout_width="48dp"
             android:layout_height="48dp" />

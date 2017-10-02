@@ -32,6 +32,8 @@ public class MyPageActivity extends BaseActivity {
 
     TextView nameText, poemCountText, poemtryCountText;
 
+    private int poemCount = 0;
+
     private String titleArr[] = new String[]{"시 원고", "출간 완료 시집", "선물 받은 시", "좋아요 한 시집"};
 
     private FloatingActionButton actionButton;
@@ -67,14 +69,18 @@ public class MyPageActivity extends BaseActivity {
                     case 1: actionButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            if(poemCount >= 3){
+                                goNextActivity(MakePoemtryActivity.class, null);
+                            }else{
+                                showToast("출간하기에 시가 충분치 않습니다.");
+                            }
                         }
                     });
                         break;
                     case 2: actionButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            goNextActivity(BluetoothShareActivity.class, null);
                         }
                     });
                         break;
@@ -94,9 +100,21 @@ public class MyPageActivity extends BaseActivity {
         viewPager.offsetLeftAndRight(4);
 
         actionButton = (FloatingActionButton)findViewById(R.id.writeButton);
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goNextActivity(WritePoemActivity.class, null);
+            }
+        });
 
         getData();
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        getData();
+        viewPager.setAdapter(new MyPageViewAdapter(getSupportFragmentManager()));
     }
 
     private void getData(){
@@ -109,6 +127,7 @@ public class MyPageActivity extends BaseActivity {
                             nameText.setText(response.body().getName());
                             poemCountText.setText(response.body().getPoems());
                             poemtryCountText.setText(response.body().getBooks());
+                            poemCount = response.body().getPoemCountInt();
                         }else{
                             showToast("데이터 수신 오류");
                         }
@@ -129,12 +148,18 @@ public class MyPageActivity extends BaseActivity {
         @Override
         public Fragment getItem(int position) {
             MyPageRecyclerFragment fragment = new MyPageRecyclerFragment();
-            if(position % 2 == 0){
+            if(position % 2 == 1){
                 fragment.setAdapter(new MyPageGridAdapter(titleArr[position], getPreferences().getString("cookie", ""), MyPageActivity.this), true);
             }else{
                 fragment.setAdapter(new MyPageLinearAdapter(titleArr[position], getPreferences().getString("cookie", ""), MyPageActivity.this), false);
             }
+
             return fragment;
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
 
         @Override

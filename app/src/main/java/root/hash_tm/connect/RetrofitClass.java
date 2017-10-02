@@ -16,7 +16,7 @@ public class RetrofitClass {
 
     public ConnectInterface apiInterface;
 
-    private String url = "http://52.39.142.73:80";
+    private String url = "http://52.43.254.152:80";
 
     private RetrofitClass(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();

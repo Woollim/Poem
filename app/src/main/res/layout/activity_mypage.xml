@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24dp"
-                android:text="이병찬 작가"/>
+                android:text="--- 작가"/>
             <TextView
                 android:layout_alignBottom="@id/nameText"
                 android:layout_toRightOf="@id/nameText"
@@ -34,7 +34,7 @@
                 android:textSize="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="시 10편"/>
+                android:text="시집 -권"/>
             <TextView
                 android:id="@+id/text"
                 android:layout_toRightOf="@id/poemtryCountText"
@@ -52,7 +52,7 @@
                 android:textSize="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="시 10편"/>
+                android:text="시 -"/>
         </RelativeLayout>
         <View
             android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                 android:layout_marginRight="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="출간 완료 시집"
+                android:text="시 원고"
                 android:textSize="24dp"/>
 
 

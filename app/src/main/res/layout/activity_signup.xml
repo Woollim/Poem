@@ -50,6 +50,7 @@
             android:gravity="center"
             android:hint="아이디"/>
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/pwEdit"
             android:layout_width="match_parent"
             android:textColorHint="#44000000"

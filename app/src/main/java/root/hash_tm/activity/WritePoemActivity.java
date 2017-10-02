@@ -1,9 +1,11 @@
 package root.hash_tm.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -53,6 +55,7 @@ public class WritePoemActivity extends BaseActivity {
         setGravityButton = (FloatingActionButton)findViewById(R.id.setGravityButton);
 
         Intent intent = getIntent();
+
         if(!(intent.getStringExtra("title") == null)){
             isEdit = true;
             Log.e("xxx", "" + intent.getStringExtra("title"));
@@ -66,7 +69,7 @@ public class WritePoemActivity extends BaseActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                pressBack();
             }
         });
 
@@ -83,7 +86,12 @@ public class WritePoemActivity extends BaseActivity {
                                 .enqueue(new Callback<Void>() {
                                     @Override
                                     public void onResponse(Call<Void> call, Response<Void> response) {
-
+                                        if(response.code() == 201){
+                                            showToast("시 등록을 성공하였습니다.");
+                                            finish();
+                                        }else{
+                                            showToast("시 등록을 실패하였습니다.");
+                                        }
                                     }
 
                                     @Override
@@ -100,7 +108,12 @@ public class WritePoemActivity extends BaseActivity {
                                 .enqueue(new Callback<Void>() {
                                     @Override
                                     public void onResponse(Call<Void> call, Response<Void> response) {
-
+                                        if(response.code() == 200){
+                                            showToast("시를 편집했습니다.");
+                                            finish();
+                                        }else{
+                                            showToast("시 등록을 실패하였습니다.");
+                                        }
                                     }
 
                                     @Override
@@ -126,6 +139,30 @@ public class WritePoemActivity extends BaseActivity {
                         setGravity();
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        pressBack();
+    }
+
+    private void pressBack(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("시 편집이 종료됩니다.").setMessage("기존에 편집한 내용은 사라집니다.\n그래도 괜찮으시겠습니까?");
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                builder.create().cancel();
+                finish();
+            }
+        });
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                builder.create().cancel();
+            }
+        });
+        builder.create().show();
     }
 
     private void setGravity(){

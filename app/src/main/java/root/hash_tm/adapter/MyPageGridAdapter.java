@@ -2,6 +2,7 @@ package root.hash_tm.adapter;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class MyPageGridAdapter extends RecyclerView.Adapter implements Callback<
 
     public MyPageGridAdapter(String title, String cookie, BaseActivity activity) {
         this.activity = activity;
+        Log.d("xxx", "hello world");
         if(cookie.isEmpty()){
 
         }

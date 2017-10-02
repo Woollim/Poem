@@ -1,6 +1,7 @@
 package root.hash_tm.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class MyPageLinearAdapter extends RecyclerView.Adapter {
 
     public MyPageLinearAdapter(String title, String cookie, BaseActivity activity) {
         this.activity = activity;
+        Log.d("xxx", "hello world");
         this.cookie = cookie;
         if(cookie.isEmpty()){
 

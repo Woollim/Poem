@@ -11,7 +11,7 @@
         android:layout_marginBottom="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="시집 이름"
+        android:text="---"
         android:textSize="24dp"/>
     <View
         android:layout_width="match_parent"
@@ -30,13 +30,13 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="총 4편"/>
+        android:text="총 -편"/>
     <TextView
         android:id="@+id/writerText"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="이병찬 지음"/>
+        android:text="--- 지음"/>
 
 
 

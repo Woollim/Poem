@@ -1,13 +1,20 @@
 package root.hash_tm.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import root.hash_tm.Model.PoemListModel;
 import root.hash_tm.R;
@@ -19,19 +26,21 @@ import root.hash_tm.util.BaseActivity;
 
 public class MakePoemtryAdapter extends RecyclerView.Adapter<MakePoemtryAdapter.MakePoemViewHolder> {
 
-    private ArrayList<PoemListModel> data = new ArrayList<>();
-
-    public ArrayList<PoemListModel> getData() {
-        return data;
-    }
+    private List<PoemListModel> data = new ArrayList<>();
 
     private BaseActivity activity;
+
+    private Set<Integer> selectData = new HashSet<>();
+
+    public Set<Integer> getSelectData() {
+        return selectData;
+    }
 
     public MakePoemtryAdapter(BaseActivity activity) {
         this.activity = activity;
     }
 
-    public void setData(ArrayList<PoemListModel> data) {
+    public void setData(List<PoemListModel> data) {
         this.data = data;
     }
 
@@ -45,15 +54,18 @@ public class MakePoemtryAdapter extends RecyclerView.Adapter<MakePoemtryAdapter.
     public void onBindViewHolder(MakePoemViewHolder holder, int position) {
         holder.titleText.setText(data.get(position).getTitle());
         holder.contentText.setText(data.get(position).getContent());
+        holder.poemId = data.get(position).getId();
     }
 
     @Override
     public int getItemCount() {
+        Log.e("xxx", "" + data.size() );
         return data.size();
     }
 
     class MakePoemViewHolder extends RecyclerView.ViewHolder{
         TextView titleText, contentText;
+        int poemId;
 
         public MakePoemViewHolder(final View itemView) {
             super(itemView);
@@ -63,9 +75,17 @@ public class MakePoemtryAdapter extends RecyclerView.Adapter<MakePoemtryAdapter.
                 @Override
                 public void onClick(View view) {
                     RelativeLayout rootView = (RelativeLayout)view;
-                    View checkView = new View(activity);
-                    checkView.setBackgroundColor(R.color.colorAlphaBlack);
-                    rootView.addView(checkView);
+                    if(rootView.findViewWithTag("check") == null){
+                        View checkView = new View(activity);
+                        checkView.setTag("check");
+                        checkView.setBackgroundColor(R.color.colorAlphaBlack);
+                        rootView.addView(checkView);
+                        selectData.add(poemId);
+                    }else{
+                        View checkView = (View) rootView.findViewWithTag("check");
+                        rootView.removeView(checkView);
+                        selectData.remove(poemId);
+                    }
                 }
             });
         }

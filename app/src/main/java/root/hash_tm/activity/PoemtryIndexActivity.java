@@ -24,6 +24,8 @@ public class PoemtryIndexActivity extends BaseActivity {
 
     TextView titleText, poemCountText, writerText;
 
+    PoemtryIndexAdapter adapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +43,8 @@ public class PoemtryIndexActivity extends BaseActivity {
         writerText = (TextView)findViewById(R.id.writerText);
 
         getData(bookId);
-
-        recyclerView.setAdapter(new PoemtryIndexAdapter(this, bookId));
+        adapter = new PoemtryIndexAdapter(this, bookId);
+        recyclerView.setAdapter(adapter);
     }
 
     private void getData(String bookId){
@@ -54,6 +56,7 @@ public class PoemtryIndexActivity extends BaseActivity {
                             titleText.setText(response.body().getTitle());
                             writerText.setText(response.body().getWriter());
                             poemCountText.setText(response.body().getPoems());
+                            adapter.setBookTitleText(response.body().getTitle());
                         }else{
                             showToast("데이터를 로드하는데 실패하였습니다.");
                         }

@@ -1,5 +1,6 @@
 package root.hash_tm.connect;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -20,6 +21,7 @@ import root.hash_tm.Model.UserInfoModel;
  */
 
 public interface ConnectInterface {
+
     @POST("/join/email/check")
     @FormUrlEncoded
     Call<Void> checkEmailTwice(@Field("email") String email);
@@ -61,9 +63,12 @@ public interface ConnectInterface {
     @FormUrlEncoded
     Call<Void> editPoem(@Header("Poem-Session-Key")String cookie, @Path("poemId") int poemId, @Field("title")String title, @Field("content")String content, @Field("alignment")int gravity);
 
-
-    @GET("member")
+    @GET("/member")
     Call<UserInfoModel> getMyInfo(@Header("Poem-Session-Key")String cookie);
+
+    @POST("/book")
+    Call<Void> uploadPoemtry(@Header("Poem-Session-Key")String cookie, @Field("title")String title, @Field("poems")JsonArray poems);
+
 
 
 

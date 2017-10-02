@@ -17,6 +17,10 @@ public class UserInfoModel {
     @SerializedName("poems")
     private int poems;
 
+    public int getPoemCountInt(){
+        return poems;
+    }
+
     public String getEmail() {
         return email;
     }

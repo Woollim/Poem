@@ -10,7 +10,7 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MakePoemtryActivity">
+        <activity android:name=".activity.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +26,8 @@
         <activity android:name=".activity.PoemtryIndexActivity"/>
         <activity android:name=".activity.WritePoemActivity"/>
         <activity android:name=".activity.PoemActivity"/>
+        <activity android:name=".activity.MakePoemtryActivity"/>
+        <activity android:name=".activity.BluetoothShareActivity"/>
 
     </application>
 
