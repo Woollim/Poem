@@ -58,7 +58,7 @@ public class PoemtryIndexActivity extends BaseActivity {
                             poemCountText.setText(response.body().getPoems());
                             adapter.setBookTitleText(response.body().getTitle());
                         }else{
-                            showToast("데이터를 로드하는데 실패하였습니다.");
+                            showSnack("데이터를 로드하는데 실패하였습니다.");
                         }
                     }
 

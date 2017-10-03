@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,6 +65,7 @@ public class MyPageActivity extends BaseActivity {
                         @Override
                         public void onClick(View view) {
                             goNextActivity(WritePoemActivity.class, null);
+                            finish();
                         }
                     });
                         break;
@@ -71,8 +74,9 @@ public class MyPageActivity extends BaseActivity {
                         public void onClick(View view) {
                             if(poemCount >= 3){
                                 goNextActivity(MakePoemtryActivity.class, null);
+                                finish();
                             }else{
-                                showToast("출간하기에 시가 충분치 않습니다.");
+                                showSnack("출간하기에 시가 충분치 않습니다.");
                             }
                         }
                     });
@@ -97,7 +101,6 @@ public class MyPageActivity extends BaseActivity {
 
         viewPager.setAdapter(new MyPageViewAdapter(getSupportFragmentManager()));
 
-        viewPager.offsetLeftAndRight(4);
 
         actionButton = (FloatingActionButton)findViewById(R.id.writeButton);
         actionButton.setOnClickListener(new View.OnClickListener() {
@@ -110,12 +113,6 @@ public class MyPageActivity extends BaseActivity {
         getData();
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        getData();
-        viewPager.setAdapter(new MyPageViewAdapter(getSupportFragmentManager()));
-    }
 
     private void getData(){
         RetrofitClass.getInstance().apiInterface
@@ -129,7 +126,7 @@ public class MyPageActivity extends BaseActivity {
                             poemtryCountText.setText(response.body().getBooks());
                             poemCount = response.body().getPoemCountInt();
                         }else{
-                            showToast("데이터 수신 오류");
+                            showSnack("데이터 수신 오류");
                         }
                     }
 
@@ -141,13 +138,18 @@ public class MyPageActivity extends BaseActivity {
     }
 
     class MyPageViewAdapter extends FragmentPagerAdapter{
+
+        ArrayList<MyPageRecyclerFragment> fragmentArr = new ArrayList<>();
+
         public MyPageViewAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
+
             MyPageRecyclerFragment fragment = new MyPageRecyclerFragment();
+
             if(position % 2 == 1){
                 fragment.setAdapter(new MyPageGridAdapter(titleArr[position], getPreferences().getString("cookie", ""), MyPageActivity.this), true);
             }else{
@@ -155,11 +157,6 @@ public class MyPageActivity extends BaseActivity {
             }
 
             return fragment;
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
         }
 
         @Override

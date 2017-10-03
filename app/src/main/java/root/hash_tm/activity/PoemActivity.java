@@ -80,7 +80,7 @@ public class PoemActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if(position >= data.size() - 1){
-                    showToast("마지막 시입니다.");
+                    showSnack("마지막 시입니다.");
                 }else{
                     getData(data.get(++position).getId(), cookie);
                     countText.setText(position + 1 + "/" + data.size());
@@ -92,7 +92,7 @@ public class PoemActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if(0 >= position){
-                    showToast("첫번째 시입니다.");
+                    showSnack("첫번째 시입니다.");
                 }else{
                     getData(data.get(--position).getId(), cookie);
                     countText.setText(position + 1 + "/" + data.size());

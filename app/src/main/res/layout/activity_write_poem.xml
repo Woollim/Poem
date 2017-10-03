@@ -12,17 +12,28 @@
         android:layout_width="match_parent"
         android:layout_height="55dp">
         <ImageButton
+            android:padding="8dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_home"
+            android:scaleType="fitCenter"
             android:id="@+id/backButton"
             android:layout_width="48dp"
             android:layout_height="70dp" />
+
         <EditText
+            android:textColorHint="@color/colorNo2"
             android:id="@+id/titleEdit"
             android:gravity="center"
             android:hint="제목을 입력하세요"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent" />
+
         <ImageButton
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_submit"
             android:id="@+id/sendButton"
             android:layout_width="48dp"
             android:layout_height="70dp" />
@@ -35,6 +46,7 @@
         android:layout_weight="1">
 
         <EditText
+            android:textColorHint="@color/colorNo2"
             android:id="@+id/contentEdit"
             android:padding="8dp"
             android:hint="내용을 입력하세요"
@@ -43,12 +55,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <android.support.design.widget.FloatingActionButton
+        <ImageButton
+            android:elevation="2dp"
             android:id="@+id/setGravityButton"
-            android:layout_width="wrap_content"
+            android:layout_width="48dp"
             android:layout_margin="16dp"
-            android:layout_height="wrap_content"
-            app:fabSize="mini"
+            android:layout_height="48dp"
+            android:scaleType="fitXY"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_align_right"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"/>
 

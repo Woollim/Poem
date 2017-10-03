@@ -11,8 +11,9 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:scaleType="fitCenter"
             android:layout_width="84dp"
-            android:src="@drawable/img_main_books"
+            android:src="@drawable/img_paper"
             android:layout_height="84dp" />
 
         <TextView
@@ -20,18 +21,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="마음에 드는 시집이 없으세요?"
-            android:textColor="@color/colorMainTitle"
+            android:textColor="@color/colorNo5"
             android:textSize="18dp"/>
 
         <Button
             android:background="@drawable/main_more_info_button_shape"
             android:layout_width="wrap_content"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
             android:textSize="14dp"
             android:id="@+id/getInfoButton"
             android:layout_height="40dp"
-            android:textColor="@color/colorMainWriter"
+            android:textColor="@color/colorNo5"
             android:text="다음 시집 불러오기"/>
     </LinearLayout>
 

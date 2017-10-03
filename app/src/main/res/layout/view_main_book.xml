@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textColor="@color/colorMainTitle"
+            android:textColor="@color/colorNo5"
             android:text="벚꼿이란 무엇인가?"
             android:textSize="24dp"/>
 
@@ -32,7 +32,7 @@
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorMainWriter"
+            android:textColor="@color/colorNo3"
             android:text="벚꼿이란 무엇인가?"
             android:textSize="14dp"/>
     </LinearLayout>

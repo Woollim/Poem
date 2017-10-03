@@ -42,11 +42,10 @@ public class SignUpActivity extends BaseActivity {
                                     if(response.code() == 201){
                                         Log.d("xxx", "cookie : " + response.headers().get("Poem-Session-Key"));
                                         saveData("cookie", response.headers().get("Poem-Session-Key"));
-                                        showToast("환영합니다.");
                                         goNextActivity(MainActivity.class, null);
                                         finish();
                                     }else if(response.code() == 400){
-                                        showToast("회원가입에 실패하였습니다.");
+                                        showSnack("회원가입에 실패하였습니다.");
                                     }
                                 }
 

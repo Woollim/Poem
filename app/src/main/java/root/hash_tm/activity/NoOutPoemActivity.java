@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import root.hash_tm.Manager.TTSManager;
 import root.hash_tm.Model.IntentModel;
 import root.hash_tm.Model.PoemModel;
 import root.hash_tm.R;
@@ -28,7 +29,7 @@ public class NoOutPoemActivity extends BaseActivity {
     ImageButton speakButton, editButton;
     TextView titleText, contentText, writerText;
 
-//    TTSManager ttsManager = new TTSManager(this);
+    TTSManager ttsManager;
 
 
     @Override
@@ -36,22 +37,23 @@ public class NoOutPoemActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poem_no_out);
 
+
         Intent intent = getIntent();
         final String poemId = intent.getStringExtra("poemId");
-        String cookie = intent.getStringExtra("cookie");
+
+        ttsManager = new TTSManager(this);
 
         speakButton = (ImageButton)findViewById(R.id.speakButton);
         editButton = (ImageButton)findViewById(R.id.editButton);
         titleText = (TextView)findViewById(R.id.titleText);
         contentText = (TextView)findViewById(R.id.contentText);
         writerText = (TextView)findViewById(R.id.writerText);
-        getData(poemId, cookie);
 
         speakButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //ttsManager.readTTS(titleText.getText().toString());
+                        ttsManager.readTTS(titleText.getText().toString());
                     }
                 }
         );
@@ -67,10 +69,19 @@ public class NoOutPoemActivity extends BaseActivity {
                     data.add(new IntentModel("aligment", aligment + ""));
                     goNextActivity(WritePoemActivity.class, data);
                 }else{
-                    showToast("잠시만 기다려 주세요");
+                    showSnack("잠시만 기다려 주세요");
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = getIntent();
+        final String poemId = intent.getStringExtra("poemId");
+        String cookie = intent.getStringExtra("cookie");
+        getData(poemId, cookie);
     }
 
     private String title = "", content = "";
@@ -114,8 +125,14 @@ public class NoOutPoemActivity extends BaseActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        goNextActivity(MyPageActivity.class, null);
+        finish();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        //ttsManager.shutDownTTS();
+        ttsManager.shutDownTTS();
     }
 }

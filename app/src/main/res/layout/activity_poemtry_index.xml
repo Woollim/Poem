@@ -11,12 +11,13 @@
         android:layout_marginBottom="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="---"
-        android:textSize="24dp"/>
+        android:text="시집 제목"
+        android:textColor="@color/colorNo5"
+        android:textSize="22dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorMainWriter"/>
+        android:background="@color/colorNo4"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_marginTop="8dp"
@@ -26,12 +27,15 @@
     <TextView
         android:id="@+id/poemCountText"
         android:layout_marginTop="8dp"
-        android:textSize="14dp"
+        android:textSize="16dp"
+        android:textColor="@color/colorNo3"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="총 -편"/>
     <TextView
+        android:textColor="@color/colorNo3"
+        android:textSize="16dp"
         android:id="@+id/writerText"
         android:layout_gravity="center"
         android:layout_width="wrap_content"

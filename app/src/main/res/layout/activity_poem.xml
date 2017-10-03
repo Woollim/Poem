@@ -12,14 +12,19 @@
             android:id="@+id/backButton"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:padding="8dp"
+            android:src="@drawable/btn_back"
             android:layout_width="48dp"
             android:layout_height="48dp" />
 
         <TextView
             android:id="@+id/bookTitle"
             android:layout_centerInParent="true"
-            android:text="---"
-            android:textSize="22dp"
+            android:text="시집 제목"
+            android:textSize="20dp"
+            android:textColor="@color/colorNo5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"/>
@@ -40,26 +45,30 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <ImageButton
                     android:background="@android:color/transparent"
                     android:id="@+id/actionButton"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/ic_volume_up_black_24dp"/>
+                    android:scaleType="fitCenter"
+                    android:padding="8dp"
+                    android:src="@drawable/ico_tts"/>
                 <TextView
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="2dp"
                     android:layout_marginBottom="16dp"
                     android:id="@+id/titleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="---"
-                    android:textStyle="bold"
+                    android:text="제목"
+                    android:textColor="@color/colorNo5"
                     android:textSize="22dp"/>
                 <TextView
+                    android:textColor="@color/colorNo4"
                     android:id="@+id/contentText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="---"
+                    android:text="시 내용"
                     android:textSize="16dp"/>
                 <TextView
                     android:textSize="18dp"
@@ -67,38 +76,54 @@
                     android:id="@+id/writerText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="---"/>
+                    android:text="지은이"
+                    android:textColor="@color/colorNo3"/>
             </LinearLayout>
         </ScrollView>
         <TextView
+            android:background="@android:color/transparent"
             android:id="@+id/countText"
+            android:textColor="@color/colorNo3"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-/-"
-            android:textSize="14dp"/>
+            android:textSize="16dp"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
         <ImageButton
+            android:src="@drawable/btn_left"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
             android:id="@+id/beforeButton"
             android:layout_centerVertical="true"
             android:layout_width="48dp"
             android:layout_height="48dp" />
         <ImageButton
+            android:src="@drawable/btn_right"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
             android:id="@+id/afterButton"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_width="48dp"
             android:layout_height="48dp" />
+
         <ImageButton
+            android:src="@drawable/ico_unlike"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
             android:id="@+id/likeButton"
             android:layout_centerInParent="true"
             android:layout_width="48dp"
             android:layout_height="48dp" />
+
     </RelativeLayout>
 
 

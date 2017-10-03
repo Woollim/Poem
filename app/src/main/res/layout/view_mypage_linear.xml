@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="120dp"
     android:layout_margin="16dp"
-    android:background="@drawable/back_mypage_linear"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
+        android:background="@drawable/back_mypage_linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -14,25 +14,28 @@
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="---"
+            android:text="시 제목"
+            android:textColor="@color/colorNo5"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="24dp"
-            android:textSize="24dp"/>
+            android:textSize="22dp"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:background="@color/colorMainWriter"/>
+            android:background="@color/colorNo4"/>
 
         <TextView
+            android:background="@color/colorWhite"
             android:id="@+id/contentText"
-            android:text="---"
-            android:textSize="18dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
+            android:text="시 내용"
+            android:textColor="@color/colorNo4"
+            android:textSize="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:layout_width="match_parent"

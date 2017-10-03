@@ -107,6 +107,7 @@ public class MyPageLinearAdapter extends RecyclerView.Adapter {
                     data.add(new IntentModel("poemId", id + ""));
                     data.add(new IntentModel("cookie", cookie));
                     activity.goNextActivity(NoOutPoemActivity.class, data);
+                    activity.finish();
                 }
             });
         }

@@ -1,7 +1,8 @@
 package root.hash_tm.connect;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -57,7 +58,7 @@ public interface ConnectInterface {
 
     @POST("/poem")
     @FormUrlEncoded
-    Call<Void> uploadPoem(@Header("Poem-Session-Key")String cookie, @Field("title")String title, @Field("content")String content, @Field("alignment")int gravity);
+    Call<Void> createPoem(@Header("Poem-Session-Key")String cookie, @Field("title")String title, @Field("content")String content, @Field("alignment")int gravity);
 
     @PUT("/poem/{poemId}")
     @FormUrlEncoded
@@ -67,7 +68,8 @@ public interface ConnectInterface {
     Call<UserInfoModel> getMyInfo(@Header("Poem-Session-Key")String cookie);
 
     @POST("/book")
-    Call<Void> uploadPoemtry(@Header("Poem-Session-Key")String cookie, @Field("title")String title, @Field("poems")JsonArray poems);
+    @FormUrlEncoded
+    Call<Void> uploadPoemtry(@Header("Poem-Session-Key")String cookie, @Field("title")String title, @Field("poems")JSONArray poems);
 
 
 

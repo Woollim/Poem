@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,7 +27,7 @@ public class WritePoemActivity extends BaseActivity {
 
     EditText contentEdit, titleEdit;
     ImageView backButton, sendButton;
-    FloatingActionButton setGravityButton;
+    ImageButton setGravityButton;
 
     private int gravityInt = 1;
 
@@ -52,13 +51,12 @@ public class WritePoemActivity extends BaseActivity {
         backButton = (ImageButton)findViewById(R.id.backButton);
         sendButton = (ImageButton)findViewById(R.id.sendButton);
 
-        setGravityButton = (FloatingActionButton)findViewById(R.id.setGravityButton);
+        setGravityButton = (ImageButton)findViewById(R.id.setGravityButton);
 
         Intent intent = getIntent();
 
         if(!(intent.getStringExtra("title") == null)){
             isEdit = true;
-            Log.e("xxx", "" + intent.getStringExtra("title"));
             titleEdit.setText(intent.getStringExtra("title"));
             contentEdit.setText(intent.getStringExtra("content"));
             gravityInt = Integer.parseInt(intent.getStringExtra("aligment"));
@@ -77,7 +75,7 @@ public class WritePoemActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if(isEmpty()){
-                    showToast("값을 다 입력하세요.");
+                    showSnack("값을 다 입력하세요.");
                 }else{
                     if(isEdit){
                         RetrofitClass.getInstance()
@@ -86,11 +84,12 @@ public class WritePoemActivity extends BaseActivity {
                                 .enqueue(new Callback<Void>() {
                                     @Override
                                     public void onResponse(Call<Void> call, Response<Void> response) {
-                                        if(response.code() == 201){
-                                            showToast("시 등록을 성공하였습니다.");
+                                        Log.d("xxx", "" + response.code());
+                                        if(response.code() == 200){
+                                            showSnack("시를 편집했습니다.");
                                             finish();
                                         }else{
-                                            showToast("시 등록을 실패하였습니다.");
+                                            showSnack("시 등록을 실패하였습니다.");
                                         }
                                     }
 
@@ -103,16 +102,17 @@ public class WritePoemActivity extends BaseActivity {
                     }else{
                         RetrofitClass.getInstance()
                                 .apiInterface
-                                .uploadPoem(getPreferences().getString("cookie",""),
+                                .createPoem(getPreferences().getString("cookie",""),
                                         getText(titleEdit), getText(contentEdit), gravityInt)
                                 .enqueue(new Callback<Void>() {
                                     @Override
                                     public void onResponse(Call<Void> call, Response<Void> response) {
-                                        if(response.code() == 200){
-                                            showToast("시를 편집했습니다.");
+                                        Log.d("xxx", "" + response.code());
+                                        if(response.code() == 201){
+                                            showSnack("시 등록을 성공하였습니다.");
                                             finish();
                                         }else{
-                                            showToast("시 등록을 실패하였습니다.");
+                                            showSnack("시 등록을 실패하였습니다.");
                                         }
                                     }
 
@@ -147,33 +147,40 @@ public class WritePoemActivity extends BaseActivity {
     }
 
     private void pressBack(){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("시 편집이 종료됩니다.").setMessage("기존에 편집한 내용은 사라집니다.\n그래도 괜찮으시겠습니까?");
-        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                builder.create().cancel();
-                finish();
-            }
-        });
-        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                builder.create().cancel();
-            }
-        });
-        builder.create().show();
+        if(isEmpty()){
+            finish();
+        }else{
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("시 편집이 종료됩니다.").setMessage("기존에 편집한 내용은 사라집니다.\n그래도 괜찮으시겠습니까?");
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    builder.create().cancel();
+                    finish();
+                }
+            });
+            builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    builder.create().cancel();
+                }
+            });
+            builder.create().show();
+        }
     }
 
     private void setGravity(){
         switch (gravityInt){
             case 1:
+                setGravityButton.setImageResource(R.drawable.btn_align_right);
                 contentEdit.setGravity(Gravity.RIGHT);
                 break;
             case 2:
+                setGravityButton.setImageResource(R.drawable.btn_align_center);
                 contentEdit.setGravity(Gravity.CENTER_HORIZONTAL);
                 break;
             case 3:
+                setGravityButton.setImageResource(R.drawable.btn_align_left);
                 contentEdit.setGravity(Gravity.LEFT);
                 break;
             default:

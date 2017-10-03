@@ -31,11 +31,16 @@ public class SignInActivity extends BaseActivity {
         Button signInButton = (Button)findViewById(R.id.signInButton);
         Button signUpButton = (Button)findViewById(R.id.signUpButton);
 
+        if(!getPreferences().getString("cookie", "").isEmpty()){
+            goNextActivity(MainActivity.class, null);
+            finish();
+        }
+
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(getText(idEdit).isEmpty() && getText(pwEdit).isEmpty()){
-                    showToast("아이디와 비빌번호를 입력하세요");
+                    showSnack("아이디와 비빌번호를 입력하세요");
                 }else{
                     RetrofitClass.getInstance().apiInterface.signIn(getText(idEdit), getText(pwEdit))
                             .enqueue(new Callback<Void>() {
@@ -47,7 +52,7 @@ public class SignInActivity extends BaseActivity {
                                         goNextActivity(MainActivity.class, null);
                                         finish();
                                     }else if(response.code() == 400){
-                                        showToast("로그인에 실패하였습니다.");
+                                        showSnack("로그인에 실패하였습니다.");
                                     }
                                 }
 

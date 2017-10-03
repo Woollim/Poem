@@ -15,6 +15,7 @@
     <TextView
         android:id="@+id/textView"
         android:gravity="center"
+        android:textColor="@color/colorNo5"
         android:layout_marginTop="28dp"
         android:layout_marginBottom="28dp"
         android:layout_below="@id/imageView"
@@ -38,7 +39,7 @@
             android:hint="이메일"
             android:inputType="textEmailAddress"
             android:textSize="18dp"
-            android:textColorHint="#44000000"
+            android:textColorHint="@color/colorNo2"
             android:padding="12dp"
             android:background="@drawable/back_signin_edit"
             android:layout_width="match_parent"
@@ -50,7 +51,7 @@
             android:gravity="center"
             android:hint="비밀번호"
             android:textSize="18dp"
-            android:textColorHint="#44000000"
+            android:textColorHint="@color/colorNo2"
             android:padding="12dp"
             android:background="@drawable/back_signin_edit"
             android:layout_width="match_parent"
@@ -66,7 +67,7 @@
                 android:textSize="18dp"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:background="@color/colorMainWriter"
+                android:background="@color/colorNo4"
                 android:layout_height="wrap_content" />
             <View
                 android:layout_width="1dp"
@@ -79,7 +80,7 @@
                 android:textSize="18dp"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:background="@color/colorMainWriter"
+                android:background="@color/colorNo4"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>

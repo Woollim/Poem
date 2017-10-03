@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivity {
                             adapter.notifyDataSetChanged();
                             viewPager.setCurrentItem(0);
                         }else{
-                            showToast("데이터 로드 실패");
+                            showSnack("데이터 로드 실패");
                         }
                     }
 

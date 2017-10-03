@@ -1,11 +1,11 @@
 package root.hash_tm.adapter;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -88,13 +88,13 @@ public class MyPageGridAdapter extends RecyclerView.Adapter implements Callback<
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        CardView bookCard;
+        ImageView bookCard;
         TextView titleText, writerText;
         int id;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            bookCard = (CardView)itemView.findViewById(R.id.bookCard);
+            bookCard = (ImageView)itemView.findViewById(R.id.bookCard);
             titleText = (TextView)itemView.findViewById(R.id.titleText);
             writerText = (TextView)itemView.findViewById(R.id.writerText);
 
@@ -104,6 +104,7 @@ public class MyPageGridAdapter extends RecyclerView.Adapter implements Callback<
                     ArrayList<IntentModel> arrayList = new ArrayList<IntentModel>();
                     arrayList.add(new IntentModel("bookId", id + ""));
                     activity.goNextActivity(PoemtryIndexActivity.class, arrayList);
+                    activity.finish();
                 }
             });
         }

@@ -16,9 +16,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
 
 import java.util.Arrays;
 import java.util.List;
@@ -52,19 +53,21 @@ public class MakePoemtryActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         Set<Integer> tempData = adapter.getSelectData();
-        JsonArray array = new JsonArray();
+        JSONArray array = new JSONArray();
+
         for(int i : tempData){
-            array.add(i);
+            array.put(i);
         }
+
         RetrofitClass.getInstance().apiInterface
                 .uploadPoemtry(getPreferences().getString("cookie",""), titleEdit.getText().toString(), array)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.code() == 201){
-                            showToast("시집을 출간하였습니다.");
+                            showSnack("시집을 출간하였습니다.");
                         }else{
-                            showToast("시집을 출간하지 못했습니다.");
+                            showSnack("시집을 출간하지 못했습니다.");
                         }
                     }
 
@@ -123,7 +126,7 @@ public class MakePoemtryActivity extends BaseActivity implements View.OnClickLis
                                 adapter.setData(data);
                                 adapter.notifyDataSetChanged();
                             }else{
-                                showToast("데이터를 불러오지 못했습니다.");
+                                showSnack("데이터를 불러오지 못했습니다.");
                             }
                         }
                     }

@@ -25,6 +25,10 @@ public class MyPageRecyclerFragment extends Fragment {
         this.isGrid = isGrid;
     }
 
+    public void reloadData(){
+        adapter.notifyDataSetChanged();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
