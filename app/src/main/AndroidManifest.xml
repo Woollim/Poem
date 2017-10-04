@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="root.hash_tm">
 
-    <uses-permission android:name="android.permission.BLUETOOTH" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -10,7 +9,7 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SignInActivity">
+        <activity android:name=".activity.BluetoothShareActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,10 +26,12 @@
         <activity android:name=".activity.WritePoemActivity"/>
         <activity android:name=".activity.PoemActivity"/>
         <activity android:name=".activity.MakePoemtryActivity"/>
-        <activity android:name=".activity.BluetoothShareActivity"/>
+        <!--<activity android:name=".activity.BluetoothShareActivity"/>-->
 
     </application>
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
