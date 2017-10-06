@@ -1,37 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_marginTop="16dp"
-        android:id="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/icon_bluetooth"
-        android:layout_width="108dp"
-        android:layout_height="108dp" />
+        android:layout_margin="32dp"
+        android:layout_gravity="center"
+        android:src="@drawable/btn_bluetooth"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:scaleType="fitCenter"/>
 
     <LinearLayout
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:orientation="horizontal">
 
         <Button
-            android:layout_marginBottom="16dp"
             android:id="@+id/shareButton"
-            android:layout_width="match_parent"
+            android:background="@drawable/main_more_info_button_shape"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorNo4"
+            android:textSize="18dp"
             android:text="공유하기"/>
 
         <Button
             android:id="@+id/sharedButton"
-            android:layout_width="match_parent"
+            android:background="@drawable/main_more_info_button_shape"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorNo4"
+            android:textSize="18dp"
+            android:layout_weight="1"
             android:text="공유받기"/>
 
     </LinearLayout>
 
-</RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/recyclerView"
+        android:layout_weight="1"/>
+
+</LinearLayout>

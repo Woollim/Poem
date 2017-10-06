@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import root.hash_tm.Manager.TTSManager;
 import root.hash_tm.Model.IntentModel;
 import root.hash_tm.Model.PoemModel;
 import root.hash_tm.R;
@@ -26,10 +25,8 @@ import root.hash_tm.util.BaseActivity;
 
 public class NoOutPoemActivity extends BaseActivity {
 
-    ImageButton speakButton, editButton;
+    ImageButton removeButton, editButton;
     TextView titleText, contentText, writerText;
-
-    TTSManager ttsManager;
 
 
     @Override
@@ -41,19 +38,34 @@ public class NoOutPoemActivity extends BaseActivity {
         Intent intent = getIntent();
         final String poemId = intent.getStringExtra("poemId");
 
-        ttsManager = new TTSManager(this);
 
-        speakButton = (ImageButton)findViewById(R.id.speakButton);
+        removeButton = (ImageButton)findViewById(R.id.removeButton);
         editButton = (ImageButton)findViewById(R.id.editButton);
         titleText = (TextView)findViewById(R.id.titleText);
         contentText = (TextView)findViewById(R.id.contentText);
         writerText = (TextView)findViewById(R.id.writerText);
 
-        speakButton.setOnClickListener(
+        removeButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ttsManager.readTTS(titleText.getText().toString());
+                    RetrofitClass.getInstance().apiInterface
+                            .removePoem(getPreferences().getString("cookie", ""), poemId)
+                            .enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if(response.code() == 200){
+                                        showSnack("시를 삭제했습니다.");
+                                    }else{
+                                        showSnack("시를 삭제하지 못했습니다.");
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+                                    t.printStackTrace();
+                                }
+                            });
                     }
                 }
         );
@@ -93,27 +105,7 @@ public class NoOutPoemActivity extends BaseActivity {
                     @Override
                     public void onResponse(Call<PoemModel> call, Response<PoemModel> response) {
                         if(response.code() == 200){
-                            titleText.setText(response.body().getTitle());
-                            contentText.setText(response.body().getContent());
-                            writerText.setText(response.body().getWriter());
-
-                            title = response.body().getTitle();
-                            content = response.body().getContent();
-                            aligment = response.body().getAlignment();
-
-                            switch (response.body().getAlignment()){
-                                case 3:
-                                    contentText.setGravity(Gravity.LEFT);
-                                    break;
-                                case 2:
-                                    contentText.setGravity(Gravity.CENTER);
-                                    break;
-                                case 1:
-                                    contentText.setGravity(Gravity.RIGHT);
-                                    break;
-                                default:
-                                    break;
-                            }
+                            setData(response.body());
                         }
                     }
 
@@ -124,15 +116,37 @@ public class NoOutPoemActivity extends BaseActivity {
                 });
     }
 
+    private void setData(PoemModel data){
+        titleText.setText(data.getTitle());
+        contentText.setText(data.getContent());
+        writerText.setText(data.getWriter());
+
+        title = data.getTitle();
+        content = data.getContent();
+        aligment = data.getAlignment();
+
+        switch (data.getAlignment()){
+            case 3:
+                contentText.setGravity(Gravity.LEFT);
+                break;
+            case 2:
+                contentText.setGravity(Gravity.CENTER);
+                break;
+            case 1:
+                contentText.setGravity(Gravity.RIGHT);
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public void onBackPressed() {
-        goNextActivity(MyPageActivity.class, null);
         finish();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ttsManager.shutDownTTS();
     }
 }

@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -40,6 +41,9 @@ public class MainActivity extends BaseActivity {
         adapter = new MainViewPagerAdapter(getSupportFragmentManager());
 
         getData();
+        viewPager.setOffscreenPageLimit(5);
+
+        viewPager.setAdapter(adapter);
 
         FloatingActionButton writeButton = (FloatingActionButton) findViewById(R.id.writeButton);
         writeButton.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +72,6 @@ public class MainActivity extends BaseActivity {
                             Gson gson = new Gson();
                             BookModel[] bookModelArr = gson.fromJson(data, BookModel[].class);
                             adapter.setData(bookModelArr);
-                            viewPager.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
                             viewPager.setCurrentItem(0);
                         }else{
@@ -83,12 +86,15 @@ public class MainActivity extends BaseActivity {
                 });
     }
 
-    private class MainViewPagerAdapter extends FragmentPagerAdapter{
+    private class MainViewPagerAdapter extends FragmentStatePagerAdapter {
 
         private BookModel[] data = new BookModel[0];
 
         public void setData(BookModel[] data) {
             this.data = data;
+            for(BookModel data1 : data){
+                Log.e("data", data1.getTitle());
+            }
         }
 
         public MainViewPagerAdapter(FragmentManager fm) {
@@ -97,6 +103,7 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
+            Log.e("xxx", "" + position);
             if (position == data.length){
                 MoreInfoViewFragment fragment = new MoreInfoViewFragment();
                 fragment.setMoreInfo(new View.OnClickListener() {
@@ -115,7 +122,16 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return data.length + 1;
+            if(data.length == 0){
+                return 0;
+            }else{
+                return data.length + 1;
+            }
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
     }
 }

@@ -4,13 +4,17 @@ import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import root.hash_tm.Model.PoemIndexInfoModel;
@@ -22,6 +26,9 @@ import root.hash_tm.Model.UserInfoModel;
  */
 
 public interface ConnectInterface {
+
+    @DELETE("/poem/{poemId}")
+    Call<Void> removePoem(@Header("Poem-Session-Key")String cookie, @Path("poemId")String poemId);
 
     @POST("/join/email/check")
     @FormUrlEncoded
@@ -69,9 +76,11 @@ public interface ConnectInterface {
 
     @POST("/book")
     @FormUrlEncoded
-    Call<Void> uploadPoemtry(@Header("Poem-Session-Key")String cookie, @Field("title")String title, @Field("poems")JSONArray poems);
+    Call<Integer> uploadPoemtry(@Header("Poem-Session-Key")String cookie, @Field("title")String title, @Field("poems")JSONArray poems);
 
-
+    @POST("/book/{bookId}/image")
+    @Multipart
+    Call<Void> uploadImage(@Path("bookId")int bookId, @Part MultipartBody.Part img);
 
 
 }

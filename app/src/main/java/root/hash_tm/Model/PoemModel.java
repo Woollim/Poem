@@ -2,11 +2,18 @@ package root.hash_tm.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
+import io.realm.RealmObject;
+
 /**
  * Created by root1 on 2017. 9. 26..
  */
 
-public class PoemModel {
+public class PoemModel extends RealmObject implements Serializable{
+
+    public PoemModel() {
+    }
 
     @SerializedName("title")
     private String title;

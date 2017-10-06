@@ -25,6 +25,7 @@ import root.hash_tm.R;
 import root.hash_tm.activity.PoemtryIndexActivity;
 import root.hash_tm.connect.RetrofitClass;
 import root.hash_tm.util.BaseActivity;
+import root.hash_tm.util.UtilClass;
 
 /**
  * Created by root1 on 2017. 9. 24..
@@ -47,7 +48,8 @@ public class MyPageGridAdapter extends RecyclerView.Adapter implements Callback<
             RetrofitClass.getInstance().apiInterface
                     .getMyPoemtry(cookie).enqueue(this);
         }else{
-            //RetrofitClass.getInstance().apiInterface.getHeartPomtry(cookie).enqueue(this);
+            RetrofitClass.getInstance().apiInterface
+                    .getHeartPomtry(cookie).enqueue(this);
         }
     }
 
@@ -80,6 +82,8 @@ public class MyPageGridAdapter extends RecyclerView.Adapter implements Callback<
         myViewHolder.titleText.setText(data.get(position).getTitle());
         myViewHolder.writerText.setText(data.get(position).getWriter());
         myViewHolder.id = data.get(position).getId();
+
+        UtilClass.getInstance().setImage(activity, data.get(position).getId()+"", myViewHolder.bookCard);
     }
 
     @Override

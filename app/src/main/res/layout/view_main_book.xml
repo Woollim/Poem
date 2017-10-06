@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true">
 
         <ImageView
-            android:background="@drawable/main_shape_view_book"
+            android:background="@drawable/back_mypage_grid"
             android:id="@+id/bookImage"
             android:layout_width="237dp"
             android:layout_height="344dp" />

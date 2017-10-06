@@ -5,12 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +34,8 @@ public class MyPageActivity extends BaseActivity {
 
     private int poemCount = 0;
 
+    private int position = 0;
+
     private String titleArr[] = new String[]{"시 원고", "출간 완료 시집", "선물 받은 시", "좋아요 한 시집"};
 
     private FloatingActionButton actionButton;
@@ -60,12 +60,14 @@ public class MyPageActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 titleText.setText(titleArr[position]);
                 actionButton.setVisibility(View.VISIBLE);
+
+                MyPageActivity.this.position = position;
+
                 switch (position){
                     case 0: actionButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             goNextActivity(WritePoemActivity.class, null);
-                            finish();
                         }
                     });
                         break;
@@ -74,7 +76,6 @@ public class MyPageActivity extends BaseActivity {
                         public void onClick(View view) {
                             if(poemCount >= 3){
                                 goNextActivity(MakePoemtryActivity.class, null);
-                                finish();
                             }else{
                                 showSnack("출간하기에 시가 충분치 않습니다.");
                             }
@@ -99,7 +100,7 @@ public class MyPageActivity extends BaseActivity {
             }
         });
 
-        viewPager.setAdapter(new MyPageViewAdapter(getSupportFragmentManager()));
+        viewPager.setOffscreenPageLimit(4);
 
 
         actionButton = (FloatingActionButton)findViewById(R.id.writeButton);
@@ -110,8 +111,9 @@ public class MyPageActivity extends BaseActivity {
             }
         });
 
-        getData();
     }
+
+    MyPageViewAdapter adapter;
 
 
     private void getData(){
@@ -137,9 +139,20 @@ public class MyPageActivity extends BaseActivity {
                 });
     }
 
-    class MyPageViewAdapter extends FragmentPagerAdapter{
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-        ArrayList<MyPageRecyclerFragment> fragmentArr = new ArrayList<>();
+        getData();
+
+        adapter = new MyPageViewAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        viewPager.setCurrentItem(position);
+    }
+
+    class MyPageViewAdapter extends FragmentStatePagerAdapter{
 
         public MyPageViewAdapter(FragmentManager fm) {
             super(fm);
@@ -162,6 +175,11 @@ public class MyPageActivity extends BaseActivity {
         @Override
         public int getCount() {
             return 4;
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
     }
 }

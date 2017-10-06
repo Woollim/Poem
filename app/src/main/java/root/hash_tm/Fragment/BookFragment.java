@@ -16,6 +16,7 @@ import root.hash_tm.Model.IntentModel;
 import root.hash_tm.R;
 import root.hash_tm.activity.PoemtryIndexActivity;
 import root.hash_tm.util.BaseActivity;
+import root.hash_tm.util.UtilClass;
 
 /**
  * Created by root1 on 2017. 9. 26..
@@ -41,6 +42,8 @@ public class BookFragment extends Fragment {
 
         titleText.setText(data.getTitle());
         writerText.setText(data.getWriter());
+
+        UtilClass.getInstance().setImage(activity, data.getId()+"", bookImage);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

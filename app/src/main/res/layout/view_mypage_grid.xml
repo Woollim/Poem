@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:background="@drawable/back_mypage_grid"
         android:id="@+id/bookCard"
         android:layout_width="140dp"
         android:layout_height="180dp" />
@@ -23,6 +24,7 @@
             android:layout_height="wrap_content"
             android:text="---"
             android:textSize="18dp"
+            android:textColor="@color/colorNo5"
             android:textStyle="bold"/>
 
         <TextView
@@ -31,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14dp"
+            android:textColor="@color/colorNo3"
             android:text="---"/>
     </LinearLayout>
 

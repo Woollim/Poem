@@ -1,7 +1,8 @@
 package root.hash_tm.adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +16,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import root.hash_tm.Model.IntentModel;
 import root.hash_tm.Model.PoemListModel;
+import root.hash_tm.Model.PoemModel;
 import root.hash_tm.R;
+import root.hash_tm.activity.MyPageActivity;
 import root.hash_tm.activity.NoOutPoemActivity;
+import root.hash_tm.activity.SharePoemActivity;
 import root.hash_tm.connect.RetrofitClass;
-import root.hash_tm.util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 9. 24..
@@ -32,17 +37,20 @@ import root.hash_tm.util.BaseActivity;
 public class MyPageLinearAdapter extends RecyclerView.Adapter {
 
     private List<PoemListModel> data = new ArrayList<>();
-    private BaseActivity activity;
+    private List<PoemModel> shareData = new ArrayList<>();
+    private MyPageActivity activity;
     private String cookie;
 
-    public MyPageLinearAdapter(String title, String cookie, BaseActivity activity) {
+    private boolean isShare = false;
+
+    public MyPageLinearAdapter(String title, String cookie, MyPageActivity activity) {
         this.activity = activity;
-        Log.d("xxx", "hello world");
         this.cookie = cookie;
         if(cookie.isEmpty()){
 
         }else{
             if(title.equals("시 원고")){
+                isShare = false;
                 RetrofitClass.getInstance().apiInterface
                         .getMyPoem(cookie)
                         .enqueue(new Callback<JsonObject>() {
@@ -67,7 +75,19 @@ public class MyPageLinearAdapter extends RecyclerView.Adapter {
                             }
                         });
             }else{
+                isShare = true;
 
+                Realm.init(activity);
+                Realm realm = Realm.getDefaultInstance();
+                RealmResults<PoemModel> data = realm.where(PoemModel.class).findAll();
+                List<PoemModel> data1 = new ArrayList<>();
+
+                for(int i = 0; i <data.size(); i ++){
+                    data1.add(data.get(i));
+                }
+
+                this.shareData = data1;
+                notifyDataSetChanged();
             }
         }
     }
@@ -81,9 +101,15 @@ public class MyPageLinearAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyPageLinearAdapter.MyViewHolder myViewHolder = (MyViewHolder) holder;
-        myViewHolder.titleText.setText(data.get(position).getTitle());
-        myViewHolder.contentText.setText(data.get(position).getContent());
-        myViewHolder.id = data.get(position).getId();
+        if(isShare){
+            myViewHolder.titleText.setText(shareData.get(position).getTitle());
+            myViewHolder.contentText.setText(shareData.get(position).getContent());
+            myViewHolder.data = shareData.get(position);
+        }else{
+            myViewHolder.titleText.setText(data.get(position).getTitle());
+            myViewHolder.contentText.setText(data.get(position).getContent());
+            myViewHolder.id = data.get(position).getId();
+        }
     }
 
     @Override
@@ -93,6 +119,7 @@ public class MyPageLinearAdapter extends RecyclerView.Adapter {
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView titleText, contentText;
+        PoemModel data;
         int id;
 
         public MyViewHolder(View itemView) {
@@ -103,11 +130,18 @@ public class MyPageLinearAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ArrayList<IntentModel> data = new ArrayList<>();
-                    data.add(new IntentModel("poemId", id + ""));
-                    data.add(new IntentModel("cookie", cookie));
-                    activity.goNextActivity(NoOutPoemActivity.class, data);
-                    activity.finish();
+                    if(isShare){
+                        Intent intent = new Intent(activity, SharePoemActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("data", data);
+                        intent.putExtras(bundle);
+                        activity.startActivity(intent);
+                    }else{
+                        ArrayList<IntentModel> data = new ArrayList<>();
+                        data.add(new IntentModel("poemId", id + ""));
+                        data.add(new IntentModel("cookie", cookie));
+                        activity.goNextActivity(NoOutPoemActivity.class, data);
+                    }
                 }
             });
         }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -61,9 +62,9 @@ public class MakePoemtryActivity extends BaseActivity implements View.OnClickLis
 
         RetrofitClass.getInstance().apiInterface
                 .uploadPoemtry(getPreferences().getString("cookie",""), titleEdit.getText().toString(), array)
-                .enqueue(new Callback<Void>() {
+                .enqueue(new Callback<Integer>() {
                     @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
                         if(response.code() == 201){
                             showSnack("시집을 출간하였습니다.");
                         }else{
@@ -72,13 +73,20 @@ public class MakePoemtryActivity extends BaseActivity implements View.OnClickLis
                     }
 
                     @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        t.printStackTrace();
+                    public void onFailure(Call<Integer> call, Throwable t) {
+
                     }
                 });
     }
 
     EditText titleEdit;
+
+//    private MultipartBody.Part getImage(){
+//
+//        RequestBody body = RequestBody.create(MediaType.parse("image/png"), file);
+//        MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), body);
+//        return part;
+//    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,11 +146,14 @@ public class MakePoemtryActivity extends BaseActivity implements View.OnClickLis
                 });
     }
 
+    private Uri imageUri;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == GET_PICTURE_URL){
             if(resultCode == Activity.RESULT_OK){
                 try{
+                    imageUri = data.getData();
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                     BitmapDrawable bitmapDrawable = new BitmapDrawable(bitmap);
                     bookCard.setImageDrawable((Drawable)bitmapDrawable);
