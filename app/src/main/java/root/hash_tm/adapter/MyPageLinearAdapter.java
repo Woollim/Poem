@@ -1,8 +1,8 @@
 package root.hash_tm.adapter;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,6 +83,7 @@ public class MyPageLinearAdapter extends RecyclerView.Adapter {
                 List<PoemModel> data1 = new ArrayList<>();
 
                 for(int i = 0; i <data.size(); i ++){
+                    Log.e("i", data.get(i).toString());
                     data1.add(data.get(i));
                 }
 
@@ -114,7 +115,11 @@ public class MyPageLinearAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return data.size();
+        if(isShare){
+            return shareData.size();
+        }else{
+            return data.size();
+        }
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
@@ -132,9 +137,10 @@ public class MyPageLinearAdapter extends RecyclerView.Adapter {
                 public void onClick(View view) {
                     if(isShare){
                         Intent intent = new Intent(activity, SharePoemActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("data", data);
-                        intent.putExtras(bundle);
+                        intent.putExtra("title", data.getTitle());
+                        intent.putExtra("content", data.getContent());
+                        intent.putExtra("writer", data.getWriter());
+                        intent.putExtra("alignment", data.getAlignment());
                         activity.startActivity(intent);
                     }else{
                         ArrayList<IntentModel> data = new ArrayList<>();

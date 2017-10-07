@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import root.hash_tm.Model.PoemModel;
 import root.hash_tm.R;
 import root.hash_tm.util.BaseActivity;
 
@@ -27,7 +26,6 @@ public class SharePoemActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poem_no_out);
 
-
         removeButton = (ImageButton)findViewById(R.id.removeButton);
         editButton = (ImageButton)findViewById(R.id.editButton);
         titleText = (TextView)findViewById(R.id.titleText);
@@ -37,17 +35,20 @@ public class SharePoemActivity extends BaseActivity {
         removeButton.setVisibility(View.GONE);
         editButton.setVisibility(View.GONE);
 
-        Intent intent = getIntent();
-        setData((PoemModel)intent.getSerializableExtra("data"));
+        setData(getIntent());
 
     }
 
-    private void setData(PoemModel data){
-        titleText.setText(data.getTitle());
-        contentText.setText(data.getContent());
-        writerText.setText(data.getWriter());
+    private void setData(Intent intent){
+        String title = intent.getStringExtra("title");
+        String content = intent.getStringExtra("content");
+        String writer = intent.getStringExtra("writer");
+        int alignment = intent.getIntExtra("alignment", 0);
+        titleText.setText(title);
+        contentText.setText(content);
+        writerText.setText(writer);
 
-        switch (data.getAlignment()){
+        switch (alignment){
             case 3:
                 contentText.setGravity(Gravity.LEFT);
                 break;

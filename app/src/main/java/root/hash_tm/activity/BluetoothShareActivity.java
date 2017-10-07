@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Looper;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -98,8 +99,11 @@ public class BluetoothShareActivity extends BaseActivity {
                             inputStream.read(readBuffer);
                             String data = new String(readBuffer);
                             Log.d("get data", "" + data);
+                            Looper.prepare();
                             saveData(data);
                             showSnack("시를 전송받았습니다.");
+                            Looper.loop();
+                            break;
                         }
                     }catch (Exception e){
                         showSnack("시를 받는 중 오류가 발생했습니다.");
@@ -114,14 +118,14 @@ public class BluetoothShareActivity extends BaseActivity {
     private void saveData(String data){
         String tempCookie = data.split("=")[0];
         String tempPoemId = data.split("=")[1];
-        Realm.init(this);
-        final Realm realm = Realm.getDefaultInstance();
 
         RetrofitClass.getInstance().apiInterface
                 .getPoem(tempPoemId, tempCookie).enqueue(new Callback<PoemModel>() {
             @Override
-            public void onResponse(Call<PoemModel> call, Response<PoemModel> response) {
+            public void onResponse(Call<PoemModel> call, final Response<PoemModel> response) {
                 if(response.code() == 200){
+                    Realm.init(BluetoothShareActivity.this);
+                    final Realm realm = Realm.getDefaultInstance();
                     realm.beginTransaction();
                     PoemModel saveData = realm.copyToRealm(response.body());
                     realm.commitTransaction();
