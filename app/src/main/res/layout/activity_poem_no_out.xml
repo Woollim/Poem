@@ -44,7 +44,7 @@
                 android:layout_marginBottom="8dp"
                 android:scaleType="fitCenter"
                 android:padding="8dp"
-                android:background="@android:color/transparent"
+                android:background="@drawable/shape_button_click"
                 android:src="@drawable/ico_edit" />
 
             <ImageButton
@@ -56,7 +56,7 @@
                 android:layout_marginBottom="8dp"
                 android:scaleType="fitCenter"
                 android:padding="8dp"
-                android:background="@android:color/transparent"
+                android:background="@drawable/shape_button_click"
                 android:src="@drawable/btn_delete" />
 
         </LinearLayout>

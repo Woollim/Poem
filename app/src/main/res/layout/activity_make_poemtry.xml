@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:background="@drawable/make_poemtry_image_view"
+            android:background="@drawable/back_mypage_grid"
             android:scaleType="centerCrop"
             android:id="@+id/bookCover"
             android:layout_width="180dp"

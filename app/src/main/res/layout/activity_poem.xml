@@ -12,7 +12,7 @@
             android:id="@+id/backButton"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:background="@android:color/transparent"
+            android:background="@drawable/shape_button_click"
             android:scaleType="fitCenter"
             android:padding="8dp"
             android:src="@drawable/btn_back"
@@ -47,7 +47,7 @@
                 android:layout_height="match_parent">
 
                 <ImageButton
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/shape_button_click"
                     android:id="@+id/actionButton"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
@@ -99,7 +99,7 @@
             android:src="@drawable/btn_left"
             android:padding="8dp"
             android:scaleType="fitCenter"
-            android:background="@android:color/transparent"
+            android:background="@drawable/shape_button_click"
             android:id="@+id/beforeButton"
             android:layout_centerVertical="true"
             android:layout_width="48dp"
@@ -108,7 +108,7 @@
             android:src="@drawable/btn_right"
             android:padding="8dp"
             android:scaleType="fitCenter"
-            android:background="@android:color/transparent"
+            android:background="@drawable/shape_button_click"
             android:id="@+id/afterButton"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
@@ -116,8 +116,9 @@
             android:layout_height="48dp" />
 
         <ImageButton
-            android:src="@drawable/ico_unlike"
-            android:padding="8dp"
+            android:src="@drawable/ico_like"
+            android:padding="12dp"
+            android:background="@drawable/back_check_like"
             android:scaleType="fitCenter"
             android:id="@+id/likeButton"
             android:layout_centerInParent="true"

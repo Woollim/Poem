@@ -25,8 +25,8 @@ public class BookModel {
         this.id = id;
     }
 
-    public int getHearts() {
-        return hearts;
+    public String getHearts() {
+        return "하트 "+hearts+"개";
     }
 
     public void setHearts(int hearts) {

@@ -39,8 +39,9 @@ public class UtilClass {
     public void setImage(BaseActivity activity, String bookId, ImageView imageView){
         Glide.with(activity)
                 .load("http://52.43.254.152:80/book/"+bookId+"/image")
-                .placeholder(R.drawable.back_mypage_grid)
-                .error(R.drawable.back_mypage_grid)
+                .placeholder(R.drawable.main_shape_view_book)
+                .override(237, 344)
+                .error(R.drawable.main_shape_view_book)
                 .into(imageView);
     }
 

@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -78,7 +75,7 @@ public class MakePoemtryAdapter extends RecyclerView.Adapter<MakePoemtryAdapter.
                     if(rootView.findViewWithTag("check") == null){
                         View checkView = new View(activity);
                         checkView.setTag("check");
-                        checkView.setBackgroundColor(R.color.colorAlphaBlack);
+                        checkView.setBackgroundColor(activity.getResources().getColor(R.color.colorAlphaBlack));
                         rootView.addView(checkView);
                         selectData.add(poemId);
                     }else{

@@ -38,12 +38,15 @@ public class PoemtryIndexAdapter extends RecyclerView.Adapter {
 
     private String bookTitleText;
 
+    private String bookId;
+
     public void setBookTitleText(String bookTitleText) {
         this.bookTitleText = bookTitleText;
     }
 
     public PoemtryIndexAdapter(final BaseActivity activity, String bookId) {
         this.activity = activity;
+        this.bookId = bookId;
         RetrofitClass.getInstance().apiInterface
                 .getIndexContent(bookId).enqueue(new Callback<JsonObject>() {
             @Override
@@ -76,6 +79,7 @@ public class PoemtryIndexAdapter extends RecyclerView.Adapter {
         PoemtryIndexViewHolder poemtryIndexViewHolder = (PoemtryIndexViewHolder)holder;
         poemtryIndexViewHolder.titleText.setText(data.get(position).getTitle());
         poemtryIndexViewHolder.postion = position;
+        poemtryIndexViewHolder.bookId = bookId;
     }
 
     @Override
@@ -86,6 +90,7 @@ public class PoemtryIndexAdapter extends RecyclerView.Adapter {
     class PoemtryIndexViewHolder extends RecyclerView.ViewHolder{
         TextView titleText;
         int postion;
+        String bookId;
 
         public PoemtryIndexViewHolder(final View itemView) {
             super(itemView);
@@ -99,10 +104,12 @@ public class PoemtryIndexAdapter extends RecyclerView.Adapter {
                     Intent intent = new Intent(activity, PoemActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("data", sendData);
+                    intent.putExtra("bookId", bookId);
                     intent.putExtra("bookTitle",bookTitleText);
                     intent.putExtra("index", postion);
                     intent.putExtras(bundle);
                     activity.startActivity(intent);
+                    activity.finish();
                 }
             });
         }

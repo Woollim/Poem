@@ -33,7 +33,10 @@ public class PoemActivity extends BaseActivity {
     TTSManager ttsManager;
 
     int position = 0;
+    String bookId = "";
+    String cookie;
 
+    boolean isLike = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,10 +47,11 @@ public class PoemActivity extends BaseActivity {
 
         Intent intent = getIntent();
 
+        bookId = intent.getStringExtra("bookId");
         String booktitleText = intent.getStringExtra("bookTitle");
         position = intent.getIntExtra("index", 0);
         final List<PoemIndexModel> data = ((PoemIndexSendData)intent.getSerializableExtra("data")).getIdArray();
-        final String cookie = getPreferences().getString("cookie", "");
+        cookie = getPreferences().getString("cookie", "");
 
         bookTitle = (TextView)findViewById(R.id.bookTitle);
         bookTitle.setText(booktitleText);
@@ -64,6 +68,8 @@ public class PoemActivity extends BaseActivity {
         countText = (TextView)findViewById(R.id.countText);
 
         getData(data.get(position).getId(), cookie);
+
+        checkLike();
 
         actionButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -82,6 +88,7 @@ public class PoemActivity extends BaseActivity {
                 if(position >= data.size() - 1){
                     showSnack("마지막 시입니다.");
                 }else{
+                    ttsManager.stopTTS();
                     getData(data.get(++position).getId(), cookie);
                     countText.setText(position + 1 + "/" + data.size());
                 }
@@ -91,9 +98,11 @@ public class PoemActivity extends BaseActivity {
         beforeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(0 >= position){
                     showSnack("첫번째 시입니다.");
                 }else{
+                    ttsManager.stopTTS();
                     getData(data.get(--position).getId(), cookie);
                     countText.setText(position + 1 + "/" + data.size());
                 }
@@ -110,10 +119,59 @@ public class PoemActivity extends BaseActivity {
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                clickLikeButton();
             }
         });
+    }
 
+    private void clickLikeButton(){
+        RetrofitClass.getInstance()
+                .apiInterface
+                .putLike(cookie, bookId, !isLike)
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.code() == 200){
+                            isLike = !isLike;
+                            setLikeImage();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+    }
+
+    private void setLikeImage(){
+        if(isLike){
+            likeButton.setImageResource(R.drawable.ico_like);
+        }else{
+            likeButton.setImageResource(R.drawable.ico_unlike);
+        }
+    }
+
+    private void checkLike(){
+        RetrofitClass.getInstance().apiInterface
+                .checkHeart(cookie, bookId)
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.code() == 200) {
+                            isLike = true;
+                        }else{
+                            isLike = false;
+                        }
+
+                        setLikeImage();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
     }
 
     private void getData(String poemId, String cookie){

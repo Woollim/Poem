@@ -24,7 +24,7 @@ public class TTSManager {
             }
         });
 
-        tts.setSpeechRate(0.9f);
+        //tts.setSpeechRate(0.8f);
     }
 
     public void shutDownTTS(){
@@ -32,6 +32,10 @@ public class TTSManager {
             tts.stop();
             tts.shutdown();
         }
+    }
+
+    public void stopTTS(){
+        tts.stop();
     }
 
     public void readTTS(String text){

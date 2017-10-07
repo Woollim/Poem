@@ -103,7 +103,6 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-            Log.e("xxx", "" + position);
             if (position == data.length){
                 MoreInfoViewFragment fragment = new MoreInfoViewFragment();
                 fragment.setMoreInfo(new View.OnClickListener() {

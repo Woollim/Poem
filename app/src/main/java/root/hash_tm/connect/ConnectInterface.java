@@ -76,11 +76,17 @@ public interface ConnectInterface {
 
     @POST("/book")
     @FormUrlEncoded
-    Call<Integer> uploadPoemtry(@Header("Poem-Session-Key")String cookie, @Field("title")String title, @Field("poems")JSONArray poems);
+    Call<JsonObject> uploadPoemtry(@Header("Poem-Session-Key")String cookie, @Field("title")String title, @Field("poems")JSONArray poems);
 
     @POST("/book/{bookId}/image")
     @Multipart
-    Call<Void> uploadImage(@Path("bookId")int bookId, @Part MultipartBody.Part img);
+    Call<Void> uploadImage(@Header("Poem-Session-Key")String cookie, @Path("bookId")int bookId, @Part MultipartBody.Part img);
 
+    @GET("/book/{bookId}/heart")
+    Call<Void> checkHeart(@Header("Poem-Session-Key")String cookie, @Path("bookId")String bookId);
+
+    @PUT("/book/{bookId}/heart")
+    @FormUrlEncoded
+    Call<Void> putLike(@Header("Poem-Session-Key")String cookie, @Path("bookId")String bookId,@Field("heart")boolean heart);
 
 }

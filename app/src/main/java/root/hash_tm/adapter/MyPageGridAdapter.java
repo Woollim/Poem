@@ -1,7 +1,6 @@
 package root.hash_tm.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,21 +32,20 @@ import root.hash_tm.util.UtilClass;
 
 public class MyPageGridAdapter extends RecyclerView.Adapter implements Callback<JsonObject> {
 
-    private String cookie;
     private List<BookModel> data = new ArrayList<>();
     private BaseActivity activity;
 
+    private boolean isMyPoemtry;
+
     public MyPageGridAdapter(String title, String cookie, BaseActivity activity) {
         this.activity = activity;
-        Log.d("xxx", "hello world");
-        if(cookie.isEmpty()){
-
-        }
 
         if(title.equals("출간 완료 시집")){
+            isMyPoemtry = true;
             RetrofitClass.getInstance().apiInterface
                     .getMyPoemtry(cookie).enqueue(this);
         }else{
+            isMyPoemtry = false;
             RetrofitClass.getInstance().apiInterface
                     .getHeartPomtry(cookie).enqueue(this);
         }
@@ -80,8 +78,12 @@ public class MyPageGridAdapter extends RecyclerView.Adapter implements Callback<
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyViewHolder myViewHolder = (MyViewHolder)holder;
         myViewHolder.titleText.setText(data.get(position).getTitle());
-        myViewHolder.writerText.setText(data.get(position).getWriter());
         myViewHolder.id = data.get(position).getId();
+        if(isMyPoemtry){
+            myViewHolder.writerText.setText(data.get(position).getHearts());
+        }else{
+            myViewHolder.writerText.setText(data.get(position).getWriter());
+        }
 
         UtilClass.getInstance().setImage(activity, data.get(position).getId()+"", myViewHolder.bookCard);
     }
@@ -99,6 +101,7 @@ public class MyPageGridAdapter extends RecyclerView.Adapter implements Callback<
         public MyViewHolder(View itemView) {
             super(itemView);
             bookCard = (ImageView)itemView.findViewById(R.id.bookCard);
+            bookCard.setClipToOutline(true);
             titleText = (TextView)itemView.findViewById(R.id.titleText);
             writerText = (TextView)itemView.findViewById(R.id.writerText);
 
@@ -108,7 +111,6 @@ public class MyPageGridAdapter extends RecyclerView.Adapter implements Callback<
                     ArrayList<IntentModel> arrayList = new ArrayList<IntentModel>();
                     arrayList.add(new IntentModel("bookId", id + ""));
                     activity.goNextActivity(PoemtryIndexActivity.class, arrayList);
-                    activity.finish();
                 }
             });
         }

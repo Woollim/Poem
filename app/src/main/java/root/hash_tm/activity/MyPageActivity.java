@@ -64,14 +64,18 @@ public class MyPageActivity extends BaseActivity {
                 MyPageActivity.this.position = position;
 
                 switch (position){
-                    case 0: actionButton.setOnClickListener(new View.OnClickListener() {
+                    case 0:
+                        actionButton.setImageResource(R.drawable.icon_main_pen);
+                        actionButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             goNextActivity(WritePoemActivity.class, null);
                         }
                     });
                         break;
-                    case 1: actionButton.setOnClickListener(new View.OnClickListener() {
+                    case 1:
+                        actionButton.setImageResource(R.drawable.ic_book);
+                        actionButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             if(poemCount >= 3){
@@ -82,7 +86,9 @@ public class MyPageActivity extends BaseActivity {
                         }
                     });
                         break;
-                    case 2: actionButton.setOnClickListener(new View.OnClickListener() {
+                    case 2:
+                        actionButton.setImageResource(R.drawable.ic_bluetooth_share);
+                        actionButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             goNextActivity(BluetoothShareActivity.class, null);

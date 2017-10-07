@@ -40,6 +40,7 @@ public class BookFragment extends Fragment {
         TextView writerText = (TextView) view.findViewById(R.id.writerText);
         TextView titleText = (TextView) view.findViewById(R.id.titleText);
 
+        bookImage.setClipToOutline(true);
         titleText.setText(data.getTitle());
         writerText.setText(data.getWriter());
 

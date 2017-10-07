@@ -13,7 +13,7 @@
         android:layout_height="55dp">
         <ImageButton
             android:padding="8dp"
-            android:background="@android:color/transparent"
+            android:background="@drawable/shape_button_click"
             android:src="@drawable/btn_home"
             android:scaleType="fitCenter"
             android:id="@+id/backButton"
@@ -32,7 +32,7 @@
         <ImageButton
             android:padding="8dp"
             android:scaleType="fitCenter"
-            android:background="@android:color/transparent"
+            android:background="@drawable/shape_button_click"
             android:src="@drawable/btn_submit"
             android:id="@+id/sendButton"
             android:layout_width="48dp"
