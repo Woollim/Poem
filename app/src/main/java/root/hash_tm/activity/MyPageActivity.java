@@ -79,7 +79,7 @@ public class MyPageActivity extends BaseActivity {
                         @Override
                         public void onClick(View view) {
                             if(poemCount >= 3){
-                                goNextActivity(MakePoemtryActivity.class, null);
+                                goNextActivity(SelectPoemtryActivity.class, null);
                             }else{
                                 showSnack("출간하기에 시가 충분치 않습니다.");
                             }

@@ -1,7 +1,6 @@
 package root.hash_tm.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import root.hash_tm.util.BaseActivity;
  * Created by root1 on 2017. 10. 1..
  */
 
-public class MakePoemtryAdapter extends RecyclerView.Adapter<MakePoemtryAdapter.MakePoemViewHolder> {
+public class SelectPoemtryAdapter extends RecyclerView.Adapter<SelectPoemtryAdapter.MakePoemViewHolder> {
 
     private List<PoemListModel> data = new ArrayList<>();
 
@@ -33,7 +32,7 @@ public class MakePoemtryAdapter extends RecyclerView.Adapter<MakePoemtryAdapter.
         return selectData;
     }
 
-    public MakePoemtryAdapter(BaseActivity activity) {
+    public SelectPoemtryAdapter(BaseActivity activity) {
         this.activity = activity;
     }
 
@@ -56,8 +55,11 @@ public class MakePoemtryAdapter extends RecyclerView.Adapter<MakePoemtryAdapter.
 
     @Override
     public int getItemCount() {
-        Log.e("xxx", "" + data.size() );
         return data.size();
+    }
+
+    public int getSelectDataSize(){
+        return selectData.size();
     }
 
     class MakePoemViewHolder extends RecyclerView.ViewHolder{
@@ -73,9 +75,8 @@ public class MakePoemtryAdapter extends RecyclerView.Adapter<MakePoemtryAdapter.
                 public void onClick(View view) {
                     RelativeLayout rootView = (RelativeLayout)view;
                     if(rootView.findViewWithTag("check") == null){
-                        View checkView = new View(activity);
+                        View checkView = LayoutInflater.from(activity).inflate(R.layout.view_selected, (ViewGroup) itemView.getParent(), false);
                         checkView.setTag("check");
-                        checkView.setBackgroundColor(activity.getResources().getColor(R.color.colorAlphaBlack));
                         rootView.addView(checkView);
                         selectData.add(poemId);
                     }else{

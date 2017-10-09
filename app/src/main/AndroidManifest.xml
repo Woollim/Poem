@@ -25,9 +25,10 @@
         <activity android:name=".activity.PoemtryIndexActivity"/>
         <activity android:name=".activity.WritePoemActivity"/>
         <activity android:name=".activity.PoemActivity"/>
-        <activity android:name=".activity.MakePoemtryActivity"/>
+        <activity android:name=".activity.SelectPoemtryActivity"/>
         <activity android:name=".activity.BluetoothShareActivity"/>
         <activity android:name=".activity.SharePoemActivity"/>
+        <activity android:name=".activity.SelectBookCoverActivity"/>
 
     </application>
 

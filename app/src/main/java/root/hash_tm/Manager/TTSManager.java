@@ -2,7 +2,6 @@ package root.hash_tm.Manager;
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 
 import java.util.Locale;
 
@@ -17,7 +16,6 @@ public class TTSManager {
         tts = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int i) {
-                Log.d("xxx", "onInit: " + i);
                 if(i != TextToSpeech.ERROR){
                     tts.setLanguage(Locale.KOREA);
                 }

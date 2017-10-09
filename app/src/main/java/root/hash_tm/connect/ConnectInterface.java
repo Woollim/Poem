@@ -80,7 +80,7 @@ public interface ConnectInterface {
 
     @POST("/book/{bookId}/image")
     @Multipart
-    Call<Void> uploadImage(@Header("Poem-Session-Key")String cookie, @Path("bookId")int bookId, @Part MultipartBody.Part img);
+    Call<Void> uploadImage(@Header("Poem-Session-Key")String cookie, @Path("bookId")String bookId, @Part MultipartBody.Part img);
 
     @GET("/book/{bookId}/heart")
     Call<Void> checkHeart(@Header("Poem-Session-Key")String cookie, @Path("bookId")String bookId);
