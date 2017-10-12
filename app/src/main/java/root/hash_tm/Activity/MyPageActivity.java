@@ -1,4 +1,4 @@
-package root.hash_tm.activity;
+package root.hash_tm.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,10 +16,10 @@ import retrofit2.Response;
 import root.hash_tm.Fragment.MyPageRecyclerFragment;
 import root.hash_tm.Model.UserInfoModel;
 import root.hash_tm.R;
-import root.hash_tm.adapter.MyPageGridAdapter;
-import root.hash_tm.adapter.MyPageLinearAdapter;
-import root.hash_tm.connect.RetrofitClass;
-import root.hash_tm.util.BaseActivity;
+import root.hash_tm.Adapter.MyPageGridAdapter;
+import root.hash_tm.Adapter.MyPageLinearAdapter;
+import root.hash_tm.Connect.RetrofitClass;
+import root.hash_tm.Util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 8. 29..
@@ -91,7 +91,7 @@ public class MyPageActivity extends BaseActivity {
                         actionButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            goNextActivity(BluetoothShareActivity.class, null);
+                            goNextActivity(SelectShareActivity.class, null);
                         }
                     });
                         break;

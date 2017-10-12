@@ -2,28 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
+    android:gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:gravity="center">
+    android:layout_height="60dp">
 
     <android.support.design.widget.FloatingActionButton
         android:elevation="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
         app:fabSize="mini"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/icon_main_pen"/>
 
     <TextView
-        android:layout_marginLeft="8dp"
-        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="제목 : "
         android:textStyle="bold"
-        android:textSize="20dp"/>
+        android:textSize="18dp"/>
 
     <TextView
         android:id="@+id/nameText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="3"
         android:layout_height="wrap_content"
         android:textSize="18dp"
         android:text="시 제목입니다."

@@ -32,6 +32,10 @@ public class TTSManager {
         }
     }
 
+    public boolean isSpeaking(){
+        return tts.isSpeaking();
+    }
+
     public void stopTTS(){
         tts.stop();
     }

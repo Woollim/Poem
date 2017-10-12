@@ -1,4 +1,4 @@
-package root.hash_tm.adapter;
+package root.hash_tm.Adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import java.util.Set;
 
 import root.hash_tm.Model.PoemListModel;
 import root.hash_tm.R;
-import root.hash_tm.util.BaseActivity;
+import root.hash_tm.Util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 10. 1..

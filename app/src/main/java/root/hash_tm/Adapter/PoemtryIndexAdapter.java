@@ -1,4 +1,4 @@
-package root.hash_tm.adapter;
+package root.hash_tm.Adapter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,9 +22,9 @@ import retrofit2.Response;
 import root.hash_tm.Model.PoemIndexModel;
 import root.hash_tm.Model.PoemIndexSendData;
 import root.hash_tm.R;
-import root.hash_tm.activity.PoemActivity;
-import root.hash_tm.connect.RetrofitClass;
-import root.hash_tm.util.BaseActivity;
+import root.hash_tm.Activity.PoemActivity;
+import root.hash_tm.Connect.RetrofitClass;
+import root.hash_tm.Util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 9. 24..
@@ -36,12 +36,13 @@ public class PoemtryIndexAdapter extends RecyclerView.Adapter {
 
     private List<PoemIndexModel> data = new ArrayList<>();
 
-    private String bookTitleText;
+    private String bookTitleText, writerText;
 
     private String bookId;
 
-    public void setBookTitleText(String bookTitleText) {
+    public void setBookTitleText(String bookTitleText, String writerText) {
         this.bookTitleText = bookTitleText;
+        this.writerText = writerText;
     }
 
     public PoemtryIndexAdapter(final BaseActivity activity, String bookId) {
@@ -107,9 +108,9 @@ public class PoemtryIndexAdapter extends RecyclerView.Adapter {
                     intent.putExtra("bookId", bookId);
                     intent.putExtra("bookTitle",bookTitleText);
                     intent.putExtra("index", postion);
+                    intent.putExtra("writer", writerText);
                     intent.putExtras(bundle);
                     activity.startActivity(intent);
-                    activity.finish();
                 }
             });
         }

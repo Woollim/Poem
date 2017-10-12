@@ -1,52 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_margin="32dp"
-        android:layout_gravity="center"
-        android:src="@drawable/btn_bluetooth"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:scaleType="fitCenter"/>
-
     <LinearLayout
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/shareButton"
-            android:background="@drawable/main_more_info_button_shape"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:id="@+id/regiButton"
+            android:text="기기 등록"
+            android:background="@drawable/bluetooth_button_shape"
             android:textColor="@color/colorNo4"
             android:textSize="18dp"
-            android:text="공유하기"/>
+            android:layout_margin="8dp"
+            android:layout_width="160dp"
+            android:layout_height="55dp" />
 
         <Button
-            android:id="@+id/sharedButton"
-            android:background="@drawable/main_more_info_button_shape"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorNo4"
+            android:enabled="false"
+            android:id="@+id/poemSelectButton"
+            android:text="시 선택"
             android:textSize="18dp"
-            android:layout_weight="1"
-            android:text="공유받기"/>
+            android:background="@drawable/bluetooth_button_shape"
+            android:textColor="@color/colorNo4"
+            android:layout_margin="8dp"
+            android:layout_width="160dp"
+            android:layout_height="55dp" />
+
+        <Button
+            android:enabled="false"
+            android:id="@+id/deviSelectButton"
+            android:text="기기 선택"
+            android:textSize="18dp"
+            android:background="@drawable/bluetooth_button_shape"
+            android:textColor="@color/colorNo4"
+            android:layout_margin="8dp"
+            android:layout_width="160dp"
+            android:layout_height="55dp" />
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/recyclerView"
-        android:layout_weight="1"/>
+    <ImageButton
+        android:layout_margin="4dp"
+        android:layout_alignParentBottom="true"
+        android:padding="8dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="fitCenter"
+        android:background="@drawable/shape_button_click"
+        android:src="@drawable/btn_back"/>
 
-</LinearLayout>
+
+</RelativeLayout>

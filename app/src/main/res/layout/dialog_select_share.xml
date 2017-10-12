@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@color/colorWhite"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:paddingTop="4dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:orientation="vertical">
+        <ImageView
+            android:scaleType="centerCrop"
+            android:padding="12dp"
+            android:layout_gravity="center"
+            android:src="@drawable/btn_bluetooth"
+            android:layout_width="48dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_marginBottom="8dp"
+            android:layout_margin="4dp"
+            android:textColor="@color/colorNo5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="시 나누기"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <Button
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:background="@color/colorNo4"
+                android:textColor="@color/colorWhite"
+                android:layout_width="0dp"
+                android:id="@+id/shareButton"
+                android:text="나누기"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"/>
+            <Button
+                android:id="@+id/sharedButton"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorNo4"
+                android:text="나눔 받기"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

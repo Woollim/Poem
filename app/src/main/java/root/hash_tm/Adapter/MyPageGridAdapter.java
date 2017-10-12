@@ -1,4 +1,4 @@
-package root.hash_tm.adapter;
+package root.hash_tm.Adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,10 +21,10 @@ import retrofit2.Response;
 import root.hash_tm.Model.BookModel;
 import root.hash_tm.Model.IntentModel;
 import root.hash_tm.R;
-import root.hash_tm.activity.PoemtryIndexActivity;
-import root.hash_tm.connect.RetrofitClass;
-import root.hash_tm.util.BaseActivity;
-import root.hash_tm.util.UtilClass;
+import root.hash_tm.Activity.PoemtryIndexActivity;
+import root.hash_tm.Connect.RetrofitClass;
+import root.hash_tm.Util.BaseActivity;
+import root.hash_tm.Util.UtilClass;
 
 /**
  * Created by root1 on 2017. 9. 24..

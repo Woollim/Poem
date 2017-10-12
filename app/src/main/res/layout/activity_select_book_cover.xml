@@ -23,6 +23,7 @@
         android:background="@color/colorNo4"/>
 
     <ImageView
+        android:scaleType="centerCrop"
         android:id="@+id/bookCover"
         android:background="@drawable/back_mypage_grid"
         android:layout_width="237dp"

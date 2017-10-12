@@ -1,4 +1,4 @@
-package root.hash_tm.activity;
+package root.hash_tm.Activity;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
@@ -29,11 +28,11 @@ import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import root.hash_tm.Adapter.PoemListAdapter;
+import root.hash_tm.Connect.RetrofitClass;
 import root.hash_tm.Model.PoemModel;
 import root.hash_tm.R;
-import root.hash_tm.adapter.PoemListAdapter;
-import root.hash_tm.connect.RetrofitClass;
-import root.hash_tm.util.BaseActivity;
+import root.hash_tm.Util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 10. 1..
@@ -42,45 +41,112 @@ import root.hash_tm.util.BaseActivity;
 public class BluetoothShareActivity extends BaseActivity {
 
     BluetoothAdapter bluetoothManager;
-    Button shareButton, sharedButton;
+    Button regiButton, poemSelectButton, deviSelectButton;
     RecyclerView recyclerView;
+
+    boolean isShare;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth_share);
 
-        setBluetooth();
+        turnOnBlutooth();
+        regiButton = (Button)findViewById(R.id.regiButton);
+        poemSelectButton = (Button)findViewById(R.id.poemSelectButton);
+        deviSelectButton = (Button)findViewById(R.id.deviSelectButton);
 
-        shareButton = (Button)findViewById(R.id.shareButton);
-        sharedButton = (Button)findViewById(R.id.sharedButton);
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        isShare = getIntent().getBooleanExtra("isShare", false);
 
-        shareButton.setOnClickListener(new View.OnClickListener() {
+        if(isShare){
+            poemSelectButton.setVisibility(View.GONE);
+        }
+
+        regiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.setBackgroundColor(getResources().getColor(R.color.colorNo4));
-                ((Button)view).setTextColor(Color.WHITE);
-                showDevicesDialog(bluetoothManager.getBondedDevices(), false);
+                regiDevice();
             }
         });
 
-        sharedButton.setOnClickListener(new View.OnClickListener() {
+        poemSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.setBackgroundColor(getResources().getColor(R.color.colorNo4));
-                ((Button)view).setTextColor(Color.WHITE);
-                showDevicesDialog(bluetoothManager.getBondedDevices(), true);
+                selectPoem();
             }
         });
+
+        deviSelectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDevicesDialog(isShare);
+            }
+        });
+
     }
 
+    private void turnOnBlutooth(){
+        bluetoothManager = BluetoothAdapter.getDefaultAdapter();
+        if(bluetoothManager == null){
+            showSnack("블루투스를 지원하지 않습니다.");
+            finish();
+        }else{
+            if(!bluetoothManager.isEnabled()){
+                Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(intent, 100);
+            }
+        }
+    }
 
+    private void regiDevice(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("기기 등록하기").setMessage("시를 나눌 기기를 블루투스 설정창에서 등록하세요.")
+                .setPositiveButton("설정창으로 이동", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        goSetting();
+                    }
+                })
+                .setNegativeButton("건너뛰기", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        builder.create().cancel();
+                        checkRegiDevice();
+                    }
+                }).create().show();
+    }
+
+    private void goSetting(){
+        Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
+        startActivityForResult(intent, 200);
+    }
+
+    private void selectPoem(){
+        builder = new AlertDialog.Builder(this);
+        recyclerView = new RecyclerView(this);
+        builder.setTitle("나눌 시 선택")
+                .setView(recyclerView)
+                .create().show();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        PoemListAdapter adapter = new PoemListAdapter(getPreferences().getString("cookie", ""));
+        adapter.setActivity(this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    AlertDialog.Builder builder;
+    String sendData = "";
+
+    public void getPoem(String sendData){
+        builder.create().cancel();
+        this.sendData = sendData;
+        poemSelectButton.setEnabled(true);
+    }
 
     public void sendData(String data){
         try{
             outputStream.write(data.getBytes());
             showSnack("전송을 완료하였습니다.");
+            finish();
         }catch(Exception e){
             e.printStackTrace();
             showSnack("시를 전송 중에 오류가 발생했습니다.");
@@ -140,56 +206,33 @@ public class BluetoothShareActivity extends BaseActivity {
         });
     }
 
-    private void setBluetooth(){
-        bluetoothManager = BluetoothAdapter.getDefaultAdapter();
-        if(bluetoothManager == null){
-            showSnack("블루투스를 지원하지 않습니다.");
-            finish();
-        }else{
-            if(!bluetoothManager.isEnabled()){
-                Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(intent, 100);
-            }else{
-                selectDevice(true);
-            }
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 100){
-            if(resultCode == RESULT_OK){
-                selectDevice(true);
-            }else{
+            if(resultCode != RESULT_OK){
                 showSnack("블루투스를 켜야 시를 공유할 수 있습니다.");
                 finish();
             }
         }else if(requestCode == 200){
-            selectDevice(false);
+            checkRegiDevice();
         }
     }
 
-    private void selectDevice(boolean goSetting){
+    private void checkRegiDevice(){
+        Set<BluetoothDevice> devices = bluetoothManager.getBondedDevices();
+        if(devices.size() == 0){
+            showSnack("등록된 기기가 없습니다.");
+            finish();
+        }else{
+            poemSelectButton.setEnabled(true);
+        }
+    }
+
+    private void showDevicesDialog(final boolean isServer){
         Set<BluetoothDevice> devices = bluetoothManager.getBondedDevices();
 
-        if(goSetting){
-            Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
-            startActivityForResult(intent, 200);
-        }else{
-            if(devices.size() == 0){
-                showSnack("페어링 된 기기가 없습니다.");
-                finish();
-            }
-        }
-    }
-
-    private void showDevicesDialog(final Set<BluetoothDevice> devices, final boolean isServer){
-        if(devices.size() == 0){
-            finish();
-        }
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("시를 공유할 기기 선택");
+        builder.setTitle("시를 서로 나눌 기기 선택");
         final List<String> deviceList = new ArrayList<>();
 
         for(BluetoothDevice device : devices){
@@ -216,7 +259,8 @@ public class BluetoothShareActivity extends BaseActivity {
 
         String uuidStr = "000011001-0000-1000-8000-00805F9B34FB";
         UUID uuid = java.util.UUID.fromString(uuidStr);
-        BluetoothServerSocket blutoothServerSocket = null;
+
+        BluetoothServerSocket blutoothServerSocket;
         try{
             blutoothServerSocket = bluetoothManager.listenUsingInsecureRfcommWithServiceRecord(deviceName, uuid);
 
@@ -245,8 +289,7 @@ public class BluetoothShareActivity extends BaseActivity {
 
             outputStream = bluetoothSocket.getOutputStream();
 
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(new PoemListAdapter(getPreferences().getString("cookie",""), this));
+            sendData(sendData);
 
         }catch(Exception e){
             showSnack("연결 중 오류가 발생했습니다.");

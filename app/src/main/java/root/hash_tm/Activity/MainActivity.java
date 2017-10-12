@@ -1,4 +1,4 @@
-package root.hash_tm.activity;
+package root.hash_tm.Activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,8 +21,8 @@ import root.hash_tm.Fragment.BookFragment;
 import root.hash_tm.Fragment.MoreInfoViewFragment;
 import root.hash_tm.Model.BookModel;
 import root.hash_tm.R;
-import root.hash_tm.connect.RetrofitClass;
-import root.hash_tm.util.BaseActivity;
+import root.hash_tm.Connect.RetrofitClass;
+import root.hash_tm.Util.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 
@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity {
                             adapter.notifyDataSetChanged();
                             viewPager.setCurrentItem(0);
                         }else{
-                            showSnack("데이터 로드 실패");
+                            showSnack("시가 없습니다.");
                         }
                     }
 

@@ -1,4 +1,4 @@
-package root.hash_tm.activity;
+package root.hash_tm.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import root.hash_tm.R;
-import root.hash_tm.util.BaseActivity;
+import root.hash_tm.Util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 8. 29..
@@ -32,9 +32,8 @@ public class SharePoemActivity extends BaseActivity {
         contentText = (TextView)findViewById(R.id.contentText);
         writerText = (TextView)findViewById(R.id.writerText);
 
-        removeButton.setVisibility(View.GONE);
         editButton.setVisibility(View.GONE);
-
+        editButton.setImageResource(R.drawable.ico_tts);
         setData(getIntent());
 
     }

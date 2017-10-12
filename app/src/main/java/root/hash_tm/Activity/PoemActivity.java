@@ -1,25 +1,30 @@
-package root.hash_tm.activity;
+package root.hash_tm.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.Gravity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import root.hash_tm.Connect.RetrofitClass;
+import root.hash_tm.Fragment.PoemFragment;
 import root.hash_tm.Manager.TTSManager;
 import root.hash_tm.Model.PoemIndexModel;
 import root.hash_tm.Model.PoemIndexSendData;
-import root.hash_tm.Model.PoemModel;
 import root.hash_tm.R;
-import root.hash_tm.connect.RetrofitClass;
-import root.hash_tm.util.BaseActivity;
+import root.hash_tm.Util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 8. 29..
@@ -27,21 +32,29 @@ import root.hash_tm.util.BaseActivity;
 
 public class PoemActivity extends BaseActivity {
 
-    ImageButton actionButton, beforeButton, afterButton, likeButton, backButton;
-    TextView titleText, contentText, writerText, bookTitle, countText;
+    ImageButton beforeButton, afterButton, likeButton, backButton;
+    TextView bookTitle, countText;
 
     TTSManager ttsManager;
+    ViewPager viewPager;
 
     int position = 0;
-    String bookId = "";
+
+    String bookId;
     String cookie;
+    String writer;
 
     boolean isLike = false;
+
+    RelativeLayout top, bottom;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poem);
+
+//        top = (RelativeLayout)findViewById(R.id.top);
+//        bottom = (RelativeLayout)findViewById(R.id.bottom);
 
         ttsManager = new TTSManager(this);
 
@@ -50,47 +63,64 @@ public class PoemActivity extends BaseActivity {
         bookId = intent.getStringExtra("bookId");
         String booktitleText = intent.getStringExtra("bookTitle");
         position = intent.getIntExtra("index", 0);
+        writer = intent.getStringExtra("writer");
+
         final List<PoemIndexModel> data = ((PoemIndexSendData)intent.getSerializableExtra("data")).getIdArray();
         cookie = getPreferences().getString("cookie", "");
 
         bookTitle = (TextView)findViewById(R.id.bookTitle);
         bookTitle.setText(booktitleText);
+        viewPager = (ViewPager)findViewById(R.id.viewPager);
 
-        actionButton = (ImageButton)findViewById(R.id.actionButton);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                String countStr = position + 1 + "/" + data.size();
+                countText.setText(countStr);
+                if(position == data.size() - 1){
+                    afterButton.setVisibility(View.GONE);
+                }else if(position == 0){
+                    beforeButton.setVisibility(View.GONE);
+                }else{
+                    afterButton.setVisibility(View.VISIBLE);
+                    beforeButton.setVisibility(View.VISIBLE);
+                }
+                PoemActivity.this.position = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        viewPager.setOffscreenPageLimit(data.size() + 1);
+        viewPager.setAdapter(new PoemViewPagerAdapter(getSupportFragmentManager(), data));
+
         beforeButton = (ImageButton)findViewById(R.id.beforeButton);
         afterButton = (ImageButton)findViewById(R.id.afterButton);
         likeButton = (ImageButton)findViewById(R.id.likeButton);
         backButton = (ImageButton)findViewById(R.id.backButton);
 
-        titleText = (TextView)findViewById(R.id.titleText);
-        contentText = (TextView)findViewById(R.id.contentText);
-        writerText = (TextView)findViewById(R.id.writerText);
         countText = (TextView)findViewById(R.id.countText);
-
-        getData(data.get(position).getId(), cookie);
 
         checkLike();
 
-        actionButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                    ttsManager.readTTS(contentText.getText().toString());
-                    }
-                }
-        );
-
         countText.setText(position + 1 + "/" + data.size());
+
+        viewPager.setCurrentItem(position);
 
         afterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(position >= data.size() - 1){
-                    showSnack("마지막 시입니다.");
-                }else{
-                    ttsManager.stopTTS();
-                    getData(data.get(++position).getId(), cookie);
-                    countText.setText(position + 1 + "/" + data.size());
+                ttsManager.stopTTS();
+                if(position < data.size() - 1){
+                    viewPager.setCurrentItem(++position);
                 }
             }
         });
@@ -98,13 +128,9 @@ public class PoemActivity extends BaseActivity {
         beforeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(0 >= position){
-                    showSnack("첫번째 시입니다.");
-                }else{
-                    ttsManager.stopTTS();
-                    getData(data.get(--position).getId(), cookie);
-                    countText.setText(position + 1 + "/" + data.size());
+                ttsManager.stopTTS();
+                if(position > 0){
+                    viewPager.setCurrentItem(--position);
                 }
             }
         });
@@ -115,7 +141,6 @@ public class PoemActivity extends BaseActivity {
                 finish();
             }
         });
-
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -163,7 +188,6 @@ public class PoemActivity extends BaseActivity {
                         }else{
                             isLike = false;
                         }
-
                         setLikeImage();
                     }
 
@@ -174,41 +198,29 @@ public class PoemActivity extends BaseActivity {
                 });
     }
 
-    private void getData(String poemId, String cookie){
-        RetrofitClass.getInstance().apiInterface.getPoem(poemId, cookie)
-                .enqueue(new Callback<PoemModel>() {
-                    @Override
-                    public void onResponse(Call<PoemModel> call, Response<PoemModel> response) {
-                        if(response.code() == 200){
-                            titleText.setText(response.body().getTitle());
-                            contentText.setText(response.body().getContent());
-                            writerText.setText(response.body().getWriter());
-                            switch (response.body().getAlignment()){
-                                case 3:
-                                    contentText.setGravity(Gravity.LEFT);
-                                    break;
-                                case 2:
-                                    contentText.setGravity(Gravity.CENTER);
-                                    break;
-                                case 1:
-                                    contentText.setGravity(Gravity.RIGHT);
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<PoemModel> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ttsManager.shutDownTTS();
+    }
+
+    private class PoemViewPagerAdapter extends FragmentStatePagerAdapter{
+
+        List<PoemIndexModel> data = new ArrayList<>();
+
+        public PoemViewPagerAdapter(FragmentManager fm, List<PoemIndexModel> data) {
+            super(fm);
+            this.data = data;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return new PoemFragment(cookie, data.get(position).getId(), ttsManager);
+        }
+
+        @Override
+        public int getCount() {
+            return data.size();
+        }
     }
 }

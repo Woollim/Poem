@@ -1,4 +1,4 @@
-package root.hash_tm.activity;
+package root.hash_tm.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,9 +25,9 @@ import retrofit2.Response;
 import root.hash_tm.Model.IntentModel;
 import root.hash_tm.Model.PoemListModel;
 import root.hash_tm.R;
-import root.hash_tm.adapter.SelectPoemtryAdapter;
-import root.hash_tm.connect.RetrofitClass;
-import root.hash_tm.util.BaseActivity;
+import root.hash_tm.Adapter.SelectPoemtryAdapter;
+import root.hash_tm.Connect.RetrofitClass;
+import root.hash_tm.Util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 10. 1..

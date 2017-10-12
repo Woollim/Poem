@@ -1,4 +1,4 @@
-package root.hash_tm.adapter;
+package root.hash_tm.Adapter;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -25,10 +25,10 @@ import root.hash_tm.Model.IntentModel;
 import root.hash_tm.Model.PoemListModel;
 import root.hash_tm.Model.PoemModel;
 import root.hash_tm.R;
-import root.hash_tm.activity.MyPageActivity;
-import root.hash_tm.activity.NoOutPoemActivity;
-import root.hash_tm.activity.SharePoemActivity;
-import root.hash_tm.connect.RetrofitClass;
+import root.hash_tm.Activity.MyPageActivity;
+import root.hash_tm.Activity.NoOutPoemActivity;
+import root.hash_tm.Activity.SharePoemActivity;
+import root.hash_tm.Connect.RetrofitClass;
 
 /**
  * Created by root1 on 2017. 9. 24..

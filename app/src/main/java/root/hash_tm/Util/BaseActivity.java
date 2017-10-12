@@ -1,9 +1,8 @@
-package root.hash_tm.util;
+package root.hash_tm.Util;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -22,7 +21,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void showSnack(String msg){
-        Snackbar.make(getWindow().getDecorView().getRootView(), msg, Snackbar.LENGTH_SHORT).show();
+//        Snackbar.make(getWindow().getDecorView().getRootView(), msg, Snackbar.LENGTH_SHORT).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     public void goNextActivity(Class nextClass, @Nullable ArrayList<IntentModel> datas){

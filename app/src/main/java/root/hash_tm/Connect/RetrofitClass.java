@@ -1,4 +1,4 @@
-package root.hash_tm.connect;
+package root.hash_tm.Connect;
 
         import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

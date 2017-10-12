@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SignInActivity">
+        <activity android:name=".Activity.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,17 +18,18 @@
         </activity>
 
 
-        <activity android:name=".activity.NoOutPoemActivity"/>
-        <activity android:name=".activity.MainActivity"/>
-        <activity android:name=".activity.SignUpActivity"/>
-        <activity android:name=".activity.MyPageActivity"/>
-        <activity android:name=".activity.PoemtryIndexActivity"/>
-        <activity android:name=".activity.WritePoemActivity"/>
-        <activity android:name=".activity.PoemActivity"/>
-        <activity android:name=".activity.SelectPoemtryActivity"/>
-        <activity android:name=".activity.BluetoothShareActivity"/>
-        <activity android:name=".activity.SharePoemActivity"/>
-        <activity android:name=".activity.SelectBookCoverActivity"/>
+        <activity android:name=".Activity.NoOutPoemActivity"/>
+        <activity android:name=".Activity.MainActivity"/>
+        <activity android:name=".Activity.SignUpActivity"/>
+        <activity android:name=".Activity.MyPageActivity"/>
+        <activity android:name=".Activity.PoemtryIndexActivity"/>
+        <activity android:name=".Activity.WritePoemActivity"/>
+        <activity android:name=".Activity.PoemActivity"/>
+        <activity android:name=".Activity.SelectPoemtryActivity"/>
+        <activity android:name=".Activity.BluetoothShareActivity"/>
+        <activity android:name=".Activity.SharePoemActivity"/>
+        <activity android:name=".Activity.SelectBookCoverActivity"/>
+        <activity android:name=".Activity.SelectShareActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
 
     </application>
 

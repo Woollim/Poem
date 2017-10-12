@@ -1,4 +1,4 @@
-package root.hash_tm.activity;
+package root.hash_tm.Activity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -17,6 +17,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -31,8 +32,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import root.hash_tm.R;
-import root.hash_tm.connect.RetrofitClass;
-import root.hash_tm.util.BaseActivity;
+import root.hash_tm.Connect.RetrofitClass;
+import root.hash_tm.Util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 10. 1..
@@ -42,6 +43,7 @@ public class SelectBookCoverActivity extends BaseActivity implements View.OnClic
     private static int GET_PICTURE_URL = 100;
 
     ImageView bookCover;
+    LinearLayout addLayout;
 
 
     @Override
@@ -100,7 +102,8 @@ public class SelectBookCoverActivity extends BaseActivity implements View.OnClic
         Intent intent = getIntent();
         bookId = intent.getStringExtra("bookId");
 
-        bookCover = (ImageView) findViewById(R.id.bookCover);
+        bookCover = (ImageView)findViewById(R.id.bookCover);
+        addLayout = (LinearLayout)findViewById(R.id.addLayout);
 
         bookCover.setClipToOutline(true);
 
@@ -143,6 +146,7 @@ public class SelectBookCoverActivity extends BaseActivity implements View.OnClic
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                     BitmapDrawable bitmapDrawable = new BitmapDrawable(bitmap);
                     bookCover.setImageDrawable((Drawable)bitmapDrawable);
+                    addLayout.setVisibility(View.GONE);
                 }catch(Exception e){
                     e.printStackTrace();
                 }

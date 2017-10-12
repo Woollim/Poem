@@ -1,4 +1,4 @@
-package root.hash_tm.activity;
+package root.hash_tm.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +16,8 @@ import retrofit2.Response;
 import root.hash_tm.Model.IntentModel;
 import root.hash_tm.Model.PoemModel;
 import root.hash_tm.R;
-import root.hash_tm.connect.RetrofitClass;
-import root.hash_tm.util.BaseActivity;
+import root.hash_tm.Connect.RetrofitClass;
+import root.hash_tm.Util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 8. 29..
@@ -56,6 +56,7 @@ public class NoOutPoemActivity extends BaseActivity {
                                 public void onResponse(Call<Void> call, Response<Void> response) {
                                     if(response.code() == 200){
                                         showSnack("시를 삭제했습니다.");
+                                        finish();
                                     }else{
                                         showSnack("시를 삭제하지 못했습니다.");
                                     }

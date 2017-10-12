@@ -1,4 +1,4 @@
-package root.hash_tm.activity;
+package root.hash_tm.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import root.hash_tm.Model.PoemIndexInfoModel;
 import root.hash_tm.R;
-import root.hash_tm.adapter.PoemtryIndexAdapter;
-import root.hash_tm.connect.RetrofitClass;
-import root.hash_tm.util.BaseActivity;
+import root.hash_tm.Adapter.PoemtryIndexAdapter;
+import root.hash_tm.Connect.RetrofitClass;
+import root.hash_tm.Util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 9. 4..
@@ -56,7 +56,7 @@ public class PoemtryIndexActivity extends BaseActivity {
                             titleText.setText(response.body().getTitle());
                             writerText.setText(response.body().getWriter());
                             poemCountText.setText(response.body().getPoems());
-                            adapter.setBookTitleText(response.body().getTitle());
+                            adapter.setBookTitleText(response.body().getTitle(), response.body().getWriter());
                         }else{
                             showSnack("데이터를 로드하는데 실패하였습니다.");
                         }

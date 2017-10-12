@@ -1,4 +1,4 @@
-package root.hash_tm.connect;
+package root.hash_tm.Connect;
 
 import com.google.gson.JsonObject;
 

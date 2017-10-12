@@ -1,4 +1,4 @@
-package root.hash_tm.activity;
+package root.hash_tm.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,8 +16,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import root.hash_tm.R;
-import root.hash_tm.connect.RetrofitClass;
-import root.hash_tm.util.BaseActivity;
+import root.hash_tm.Connect.RetrofitClass;
+import root.hash_tm.Util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 9. 4..

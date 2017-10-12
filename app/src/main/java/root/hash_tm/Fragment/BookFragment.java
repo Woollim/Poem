@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import root.hash_tm.Model.BookModel;
 import root.hash_tm.Model.IntentModel;
 import root.hash_tm.R;
-import root.hash_tm.activity.PoemtryIndexActivity;
-import root.hash_tm.util.BaseActivity;
-import root.hash_tm.util.UtilClass;
+import root.hash_tm.Activity.PoemtryIndexActivity;
+import root.hash_tm.Util.BaseActivity;
+import root.hash_tm.Util.UtilClass;
 
 /**
  * Created by root1 on 2017. 9. 26..
