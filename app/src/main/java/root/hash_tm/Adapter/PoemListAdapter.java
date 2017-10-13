@@ -1,6 +1,7 @@
 package root.hash_tm.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,6 +94,7 @@ public class PoemListAdapter extends RecyclerView.Adapter<PoemListAdapter.PoemVi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Log.d("xxx", "onClick: ");
                     activity.getPoem(cookie + "=" + poemId);
                 }
             });

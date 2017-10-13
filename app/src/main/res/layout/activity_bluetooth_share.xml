@@ -45,6 +45,7 @@
     </LinearLayout>
 
     <ImageButton
+        android:id="@+id/backButton"
         android:layout_margin="4dp"
         android:layout_alignParentBottom="true"
         android:padding="8dp"

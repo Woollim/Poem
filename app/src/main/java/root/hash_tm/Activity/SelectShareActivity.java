@@ -40,9 +40,11 @@ public class SelectShareActivity extends Activity implements View.OnClickListene
     public void onClick(View view) {
         Intent intent = new Intent(this, BluetoothShareActivity.class);
         boolean isShare = false;
+
         if(((Button)view) == shareButton){
             isShare = true;
         }
+
         intent.putExtra("isShare", isShare);
         startActivity(intent);
     }

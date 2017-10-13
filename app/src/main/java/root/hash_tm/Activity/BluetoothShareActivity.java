@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -56,9 +57,17 @@ public class BluetoothShareActivity extends BaseActivity {
         poemSelectButton = (Button)findViewById(R.id.poemSelectButton);
         deviSelectButton = (Button)findViewById(R.id.deviSelectButton);
 
+        ImageButton backButton = (ImageButton)findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         isShare = getIntent().getBooleanExtra("isShare", false);
 
-        if(isShare){
+        if(!isShare){
             poemSelectButton.setVisibility(View.GONE);
         }
 
@@ -122,24 +131,25 @@ public class BluetoothShareActivity extends BaseActivity {
     }
 
     private void selectPoem(){
-        builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         recyclerView = new RecyclerView(this);
-        builder.setTitle("나눌 시 선택")
-                .setView(recyclerView)
-                .create().show();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         PoemListAdapter adapter = new PoemListAdapter(getPreferences().getString("cookie", ""));
         adapter.setActivity(this);
         recyclerView.setAdapter(adapter);
+        dialog = builder.setTitle("나눌 시 선택")
+                .setView(recyclerView)
+                .create();
+        dialog.show();
     }
 
-    AlertDialog.Builder builder;
     String sendData = "";
+    AlertDialog dialog;
 
-    public void getPoem(String sendData){
-        builder.create().cancel();
+    public void getPoem(final String sendData){
         this.sendData = sendData;
-        poemSelectButton.setEnabled(true);
+        dialog.cancel();
+        deviSelectButton.setEnabled(true);
     }
 
     public void sendData(String data){
@@ -224,12 +234,16 @@ public class BluetoothShareActivity extends BaseActivity {
             showSnack("등록된 기기가 없습니다.");
             finish();
         }else{
-            poemSelectButton.setEnabled(true);
+            if(isShare){
+                poemSelectButton.setEnabled(true);
+            }else{
+                deviSelectButton.setEnabled(true);
+            }
         }
     }
 
     private void showDevicesDialog(final boolean isServer){
-        Set<BluetoothDevice> devices = bluetoothManager.getBondedDevices();
+        final Set<BluetoothDevice> devices = bluetoothManager.getBondedDevices();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("시를 서로 나눌 기기 선택");
