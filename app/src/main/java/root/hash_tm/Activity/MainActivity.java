@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.google.gson.Gson;
@@ -28,6 +29,7 @@ public class MainActivity extends BaseActivity {
 
     ViewPager viewPager;
     MainViewPagerAdapter adapter;
+    Button logoutButton;
 
     int currentCount = 1;
 
@@ -37,6 +39,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         viewPager = (ViewPager)findViewById(R.id.viewPager);
+        logoutButton = (Button)findViewById(R.id.logout);
         adapter = new MainViewPagerAdapter(getSupportFragmentManager());
 
         getData();
@@ -44,6 +47,14 @@ public class MainActivity extends BaseActivity {
 
         viewPager.setAdapter(adapter);
 
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goNextActivity(SignInActivity.class, null);
+                saveData("cookie", "");
+                finish();
+            }
+        });
         FloatingActionButton writeButton = (FloatingActionButton) findViewById(R.id.writeButton);
         writeButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -31,8 +31,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import root.hash_tm.R;
 import root.hash_tm.Connect.RetrofitClass;
+import root.hash_tm.R;
 import root.hash_tm.Util.BaseActivity;
 
 /**
@@ -80,15 +80,25 @@ public class SelectBookCoverActivity extends BaseActivity implements View.OnClic
                         @Override
                         public void onFailure(Call<Void> call, Throwable t) {
                             t.printStackTrace();
+                            showSnack("네트워크 오류가 발생했습니다.");
                         }
                     });
+
+            showSnack("시집의 표지를 보내는 중 입니다.");
+            finish();
         }
     }
 
     private MultipartBody.Part getImage(){
         File file = new File(imagePath);
+        //BitmapFactory.Options options = new BitmapFactory.Options();
+        //options.inSampleSize = 2;
+        //Bitmap src = BitmapFactory.decodeFile(imagePath, options);
+        //ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        //src.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+
         RequestBody body = RequestBody.create(MediaType.parse("image/png"), file);
-        MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), body);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("image", "send", body);
         return part;
     }
 

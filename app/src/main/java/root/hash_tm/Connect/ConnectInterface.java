@@ -89,4 +89,7 @@ public interface ConnectInterface {
     @FormUrlEncoded
     Call<Void> putLike(@Header("Poem-Session-Key")String cookie, @Path("bookId")String bookId,@Field("heart")boolean heart);
 
+    @POST("/book/{bookId}/report")
+    Call<Void> report(@Header("Poem-Session-Key")String cookie, @Path("bookId")String bookId);
+
 }

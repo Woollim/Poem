@@ -81,7 +81,7 @@ public class MyPageActivity extends BaseActivity {
                             if(poemCount >= 3){
                                 goNextActivity(SelectPoemtryActivity.class, null);
                             }else{
-                                showSnack("출간하기에 시가 충분치 않습니다.");
+                                showSnack("3편 이상의 시가 있어야\n시집을 출간할 수 있습니다.");
                             }
                         }
                     });

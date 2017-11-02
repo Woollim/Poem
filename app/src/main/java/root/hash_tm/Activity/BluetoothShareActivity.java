@@ -88,7 +88,7 @@ public class BluetoothShareActivity extends BaseActivity {
         deviSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDevicesDialog(isShare);
+                showDevicesDialog(!isShare);
             }
         });
 

@@ -82,13 +82,11 @@ public class PoemFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(ttsManager.isSpeaking()){
-                    speakButton.setImageResource(R.drawable.ico_stop);
                     ttsManager.stopTTS();
-                }else{
-                    speakButton.setImageResource(R.drawable.ico_tts);
-                    String readStr = titleText.getText().toString() + "\n" + contentText.getText().toString();
-                    ttsManager.readTTS(readStr);
                 }
+
+                String readStr = titleText.getText().toString() + "\n" + contentText.getText().toString();
+                ttsManager.readTTS(readStr);
             }
         });
         return view;

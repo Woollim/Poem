@@ -47,5 +47,6 @@ public class SelectShareActivity extends Activity implements View.OnClickListene
 
         intent.putExtra("isShare", isShare);
         startActivity(intent);
+        finish();
     }
 }

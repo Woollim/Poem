@@ -32,6 +32,8 @@ public class TTSManager {
         }
     }
 
+
+
     public boolean isSpeaking(){
         return tts.isSpeaking();
     }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import root.hash_tm.Manager.TTSManager;
 import root.hash_tm.R;
 import root.hash_tm.Util.BaseActivity;
 
@@ -20,6 +21,7 @@ public class SharePoemActivity extends BaseActivity {
     ImageButton removeButton, editButton;
     TextView titleText, contentText, writerText;
 
+    TTSManager ttsManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,9 +33,16 @@ public class SharePoemActivity extends BaseActivity {
         titleText = (TextView)findViewById(R.id.titleText);
         contentText = (TextView)findViewById(R.id.contentText);
         writerText = (TextView)findViewById(R.id.writerText);
+        ttsManager = new TTSManager(this);
 
         editButton.setVisibility(View.GONE);
-        editButton.setImageResource(R.drawable.ico_tts);
+        removeButton.setImageResource(R.drawable.ico_tts);
+        removeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ttsManager.readTTS(titleText.getText().toString() + "\n" + contentText.getText().toString());
+            }
+        });
         setData(getIntent());
 
     }
@@ -62,4 +71,9 @@ public class SharePoemActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ttsManager.shutDownTTS();
+    }
 }

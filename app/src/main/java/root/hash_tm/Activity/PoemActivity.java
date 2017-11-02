@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ import root.hash_tm.Util.BaseActivity;
 
 public class PoemActivity extends BaseActivity {
 
-    ImageButton beforeButton, afterButton, likeButton, backButton;
+    ImageButton beforeButton, afterButton, likeButton, backButton, stopButton;
     TextView bookTitle, countText;
 
     TTSManager ttsManager;
@@ -46,17 +45,23 @@ public class PoemActivity extends BaseActivity {
 
     boolean isLike = false;
 
-    RelativeLayout top, bottom;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poem);
 
-//        top = (RelativeLayout)findViewById(R.id.top);
-//        bottom = (RelativeLayout)findViewById(R.id.bottom);
+        stopButton = (ImageButton)findViewById(R.id.stopButton);
 
         ttsManager = new TTSManager(this);
+
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ttsManager.isSpeaking()){
+                    ttsManager.stopTTS();
+                }
+            }
+        });
 
         Intent intent = getIntent();
 

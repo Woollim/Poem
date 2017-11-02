@@ -14,6 +14,7 @@ import root.hash_tm.Model.IntentModel;
  * Created by root1 on 2017. 8. 28..
  */
 
+
 public class BaseActivity extends AppCompatActivity {
 
     public void showToast(String msg){
