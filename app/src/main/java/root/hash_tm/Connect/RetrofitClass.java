@@ -18,7 +18,11 @@ public class RetrofitClass {
 
     public ConnectInterface apiInterface;
 
-    private String url = "http://52.43.254.152:80";
+    // 원래 서버(http://52.43.254.152:80)가 사라져서 로컬 목 서버(backend/server.py)를 사용
+    // 에뮬레이터: 10.0.2.2 = 호스트 맥. 실기기에서는 맥의 LAN IP로 변경할 것
+    public static final String BASE_URL = "http://10.0.2.2:8081";
+
+    private String url = BASE_URL;
 
     private RetrofitClass(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();

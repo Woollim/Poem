@@ -24,7 +24,7 @@ public class UtilClass {
     public void setImage(BaseActivity activity, String bookId, ImageView imageView){
         Log.e("xxx image", "id" + bookId);
         Glide.with(activity)
-                .load("http://52.43.254.152:80/book/"+bookId+"/image")
+                .load(root.hash_tm.Connect.RetrofitClass.BASE_URL + "/book/"+bookId+"/image")
                 .placeholder(R.drawable.main_shape_view_book)
                 .override(237, 344)
                 .error(R.drawable.main_shape_view_book)

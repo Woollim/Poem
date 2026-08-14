@@ -2,7 +2,10 @@
 
 buildscript {
     repositories {
-        jcenter()
+        google()
+        mavenCentral()
+        // jcenter 서비스 종료로 미러 사용
+        maven { url 'https://maven.aliyun.com/repository/public' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
@@ -14,7 +17,9 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+        google()
+        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/public' }
     }
 }
 
